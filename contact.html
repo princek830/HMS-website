@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hospital Management System</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Link to CSS file -->
+
+  <style>
+    :root {
+      --background-color: #f4f4f4;
+      --text-color: #333;
+      --header-background: linear-gradient(to right, #8e0e00, #1f1c18);
+      --header-text-color: #ffffff;
+      --button-background: #007bff;
+      --button-text-color: #ffffff;
+      --section-background: rgba(255, 255, 255, 0.95);
+    }
+
+    [data-theme="night"] {
+      --background-color: #121212;
+      --text-color: #f1f1f1;
+      --header-background: linear-gradient(to right, #1A1A2E, #1f1c18);
+      --header-text-color: #ffffff;
+      --button-background: #5cb85c;
+      --button-text-color: #ffffff;
+      --section-background: rgba(30, 30, 30, 0.95);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+
+    header {
+      background: var(--header-background);
+      color: var(--header-text-color);
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      position: relative;
+      padding: 40px 20px;
+      background: url('https://media.istockphoto.com/id/638377134/photo/doctor-man-with-stethoscope-in-hospital.jpg?s=2048x2048&w=is&k=20&c=wmTKy8oac1j4PfFnJxCO-7TBho4R2lNlWzMm0Rl1gvs=') center/cover no-repeat;
+      background-blend-mode: overlay;
+      background-color: rgba(0, 0, 0, 0.4);
+      color: #ffffff;
+      font-size: 2.5rem;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 0;
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      color: var(--header-text-color);
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: transform 0.3s, color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #ffcc00;
+      transform: scale(1.1);
+      text-decoration: underline;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    section {
+      background: var(--section-background);
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: var(--header-background);
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #35424a;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+
+    .button, #theme-toggle, #lang-toggle {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 10px;
+      background-color: var(--button-background);
+      color: var(--button-text-color);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover, #theme-toggle:hover, #lang-toggle:hover {
+      background-color: #0056b3;
+    }
+
+    #controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 600px) {
+      nav ul li {
+        display: block;
+        margin: 10px 0;
+      }
+      #controls {
+        flex-direction: column;
+      }
+    }
+
+    .ambulance-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: red;
+      color: white;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      font-size: 2.5rem;
+      z-index: 999;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+    .cab-booking {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .cab-button {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+    .uber {
+      background-color: #000000;
+      color: #ffffff;
+    }
+    .ola {
+      background-color: #ffcc00;
+      color: #000000;
+    }
+    .cab-button img {
+      height: 24px;
+    }
+    .cab-button:hover {
+      transform: scale(1.07);
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="header-title"> 🏥 Hospital Management System</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html" id="nav-home">Home</a></li>
+        <li><a href="services.html" id="nav-services">Services</a></li>
+        <li><a href="contact.html" id="nav-contact">Contact Us</a></li>
+        <li><a href="patient-portal.html" id="nav-patient">Patient Portal</a></li>
+        <li><a href="about.html" id="nav-about">About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div style="text-align:center;">
+      <button id="theme-toggle" class="button">🌙 Theme</button>
+      <button id="lang-toggle" class="button">🌐 Hindi</button>
+    </div>
+   
+
+    <section>
+          <h2>🔍 Search for a Doctor</h2>
+          <input
+          type="text"
+         id="doctorSearch"
+         placeholder="Enter doctor name..."
+         class="search-input"
+        style="width: 100%; max-width: 400px; margin: 10px 0; display: block;"
+        />
+         <ul
+         id="doctorList"
+         style="
+         list-style: none;
+         padding: 0;
+         text-align: left;
+         max-width: 600px;
+         margin: 10px auto;
+        display: none;
+        "
+        >
+    <li data-location="https://www.google.com/maps?q=Jeevan+Jyoti+Clinic+and+Hospital+Dilshad+Garden" class="button doctor-item">
+    <span>🩺</span> Dr. Shweta Sardana Lochan - Gynecologist
+    </li>
+    <li data-location="https://www.google.com/maps?q=Dr.+RP+Singh+Cardiology+Clinic" class="button doctor-item">
+      <span>🩺</span> Dr. RP Singh - Cardiologist
+    </li>
+    <li data-location="https://www.google.com/maps?q=Dr.+Neha+Patel+Dermatology+Center" class="button doctor-item">
+      <span>🩺</span> Dr. Neha Patel - Dermatologist
+    </li>
+    <li data-location="https://www.google.com/maps?q=Dr.+Amit+Shah+Neurology+Unit" class="button doctor-item">
+      <span>🧠</span> Dr. Amit Shah - Neurologist
+    </li>
+  </ul>
+  <p id="noResults" style="text-align:center; color:gray; display:none;">No doctors found.</p>
+</section>
+
+
+    <section>
+      <h2 id="get-touch">Get in Touch</h2>
+      <p id="get-touch-desc">If you have any questions, feel free to reach out to us:</p>
+      <form>
+        <label for="name" id="label-name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email" id="label-email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message" id="label-message">Message:</label>
+        <textarea id="message" name="message" required></textarea>
+
+        <button type="submit" class="button">Send Message</button>
+      </form>
+    </section>
+
+    <section>
+      <h2 id="contact-info">Contact Information</h2>
+      <p id="contact-info-desc">For immediate assistance, you can contact us through the following:</p>
+      <p>Phone: 830-756-7800</p>
+      <p>Email: jeevan-joyti-hospital@gmail.com</p>
+      <p>Address: 123 Health St, Wellness City, State, ZIP</p>
+      <h2>Find us at:</h2>
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.001094555893!2d72.54496297416385!3d23.091199679129594!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e84f13be18b91%3A0xb7544dc08a2b1d52!2sIndia!5e0!3m2!1sen!2sin!4v1714479739489!5m2!1sen!2sin" 
+        width="100%" 
+        height="450" 
+        style="border:0; border-radius:10px;" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+
+      <!-- Cab Booking Buttons -->
+      <div class="cab-booking">
+        <a href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[latitude]=23.091199679129594&dropoff[longitude]=72.54496297416385&dropoff[nickname]=Hospital" 
+           target="_blank" 
+           class="cab-button uber">
+          🚕 Book Uber
+        </a>
+
+        <a href="https://book.olacabs.com/" 
+           target="_blank" 
+           class="cab-button ola">
+          🚕 Book Ola
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <h2 id="follow-us">Follow Us</h2>
+      <p id="follow-us-desc">Stay connected with us on social media:</p>
+      <ul>
+        <li><a href="https://www.facebook.com" target="_blank">ⓕ</a></li>
+        <li><a href="https://www.twitter.com" target="_blank">𝕏</a></li>
+             <li><a href="https://www.instagram.com" target="_blank">🅾</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Hospital Management System. All rights reserved.</p>
+  </footer>
+  <a href="tel:108" class="ambulance-float" title="Call Ambulance">🚑</a>
+  
+<script>
+// Theme toggle
+const toggleButton = document.getElementById('theme-toggle');
+
+if (localStorage.getItem('theme') === 'night') {
+    document.documentElement.setAttribute('data-theme', 'night');
+    toggleButton.textContent = '🌙';
+} else {
+    document.documentElement.setAttribute('data-theme', 'day');
+    toggleButton.textContent = '☀️';
+}
+
+toggleButton.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    if (currentTheme === 'night') {
+        document.documentElement.setAttribute('data-theme', 'day');
+        localStorage.setItem('theme', 'day');
+        toggleButton.textContent = '☀️';
+    } else {
+        document.documentElement.setAttribute('data-theme', 'night');
+        localStorage.setItem('theme', 'night');
+        toggleButton.textContent = '🌙';
+    }
+});
+    // Language toggle
+    const langToggleButton = document.getElementById('lang-toggle');
+    let currentLang = 'en';
+
+const translations = {
+  en: {
+    header: "Hospital Management System",
+    home: "Home",
+    services: "Services",
+    contact: "Contact Us",
+    patient: "Patient Portal",
+    about: "About Us",
+    getTouch: "Get in Touch",
+    getTouchDesc: "If you have any questions, feel free to reach out to us:",
+    labelName: "Name:",
+    labelEmail: "Email:",
+    labelMessage: "Message:",
+    contactInfo: "Contact Information",
+    contactInfoDesc: "For immediate assistance, you can contact us through the following:",
+    followUs: "Follow Us",
+    followUsDesc: "Stay connected with us on social media:",
+    doctorSearch: "Search for a Doctor" 
+  },
+  hi: {
+    header: "अस्पताल प्रबंधन प्रणाली",
+    home: "मुखपृष्ठ",
+    services: "सेवाएं",
+    contact: "संपर्क करें",
+    patient: "रोगी पोर्टल",
+    about: "हमारे बारे में",
+    getTouch: "संपर्क करें",
+    getTouchDesc: "यदि आपके कोई प्रश्न हैं, तो बेझिझक हमसे संपर्क करें:",
+    labelName: "नाम:",
+    labelEmail: "ईमेल:",
+    labelMessage: "संदेश:",
+    contactInfo: "संपर्क जानकारी",
+    contactInfoDesc: "तत्काल सहायता के लिए आप हमसे संपर्क कर सकते हैं:",
+    followUs: "हमें फॉलो करें",
+    followUsDesc: "हमारे साथ सोशल मीडिया पर जुड़े रहें:",
+    doctorSearch: "डॉक्टर खोजें" 
+  }
+};
+
+
+    langToggleButton.addEventListener('click', () => {
+      currentLang = currentLang === 'en' ? 'hi' : 'en';
+      const t = translations[currentLang];
+
+      document.getElementById('header-title').textContent = t.header;
+      document.getElementById('nav-home').textContent = t.home;
+      document.getElementById('nav-services').textContent = t.services;            /*additional */
+      document.getElementById('nav-contact').textContent = t.contact;
+      document.getElementById('nav-patient').textContent = t.patient;
+      document.getElementById('nav-about').textContent = t.about;
+      document.getElementById('get-touch').textContent = t.getTouch;
+      document.getElementById('get-touch-desc').textContent = t.getTouchDesc;
+      document.getElementById('label-name').textContent = t.labelName;
+      document.getElementById('label-email').textContent = t.labelEmail;
+      document.getElementById('label-message').textContent = t.labelMessage;
+      document.getElementById('contact-info').textContent = t.contactInfo;
+      document.getElementById('contact-info-desc').textContent = t.contactInfoDesc;
+      document.getElementById('follow-us').textContent = t.followUs;
+      document.getElementById('follow-us-desc').textContent = t.followUsDesc;
+      document.getElementById('search-title').textContent = `🔍 ${t.doctorSearch}`;   // not working 
+
+      langToggleButton.textContent = currentLang ==='en' ?  '🌐 Hindi':'🌐 English';
+    });
+</script>
+<script src="theme.js"></script>
+<script>
+  const doctorInput = document.getElementById('doctorSearch');
+  const doctorList = document.getElementById('doctorList');
+  const doctorItems = doctorList.querySelectorAll('li');
+  const noResults = document.getElementById('noResults');
+
+  doctorInput.addEventListener('input', () => {
+    const query = doctorInput.value.toLowerCase();
+    let hasResults = false;
+
+    doctorItems.forEach(item => {
+      const name = item.textContent.toLowerCase();
+      const match = name.includes(query);
+      item.style.display = match ? 'block' : 'none';
+      if (match) hasResults = true;
+    });
+
+    doctorList.style.display = query ? 'block' : 'none';
+    noResults.style.display = query && !hasResults ? 'block' : 'none';
+  });
+
+  doctorItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const mapURL = item.getAttribute('data-location');
+      window.open(mapURL, '_blank');
+    });
+  });
+</script>
+</body>
+</html>

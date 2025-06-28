@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hospital Management System</title>
+  <style>
+    :root {
+      --background-color: #f4f4f4;
+      --text-color: #333;
+      --header-background: linear-gradient(to right, #8e0e00, #1f1c18);
+      --header-text-color: #ffffff;
+      --button-background: #007bff;
+      --button-text-color: #ffffff;
+      --section-background: rgba(255, 255, 255, 0.95);
+    }
+
+    [data-theme="night"] {
+      --background-color: #121212;
+      --text-color: #f1f1f1;
+      --header-background: linear-gradient(to right, #1A1A2E, #1f1c18);
+      --header-text-color: #ffffff;
+      --button-background: #5cb85c;
+      --button-text-color: #ffffff;
+      --section-background: rgba(30, 30, 30, 0.95);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+
+    header {
+      background: var(--header-background);
+      color: var(--header-text-color);
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      position: relative;
+      padding: 40px 20px;
+      background: url('https://media.istockphoto.com/id/638377134/photo/doctor-man-with-stethoscope-in-hospital.jpg?s=2048x2048&w=is&k=20&c=wmTKy8oac1j4PfFnJxCO-7TBho4R2lNlWzMm0Rl1gvs=') center/cover no-repeat;
+      background-blend-mode: overlay;
+      background-color: rgba(0, 0, 0, 0.4);
+      color: #ffffff;
+      font-size: 2.5rem;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 0;
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      color: var(--header-text-color);
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: transform 0.3s, color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #ffcc00;
+      transform: scale(1.1);
+      text-decoration: underline;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    section {
+      background: var(--section-background);
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: var(--header-background);
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #35424a;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+
+    .button, #theme-toggle, #lang-toggle {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 10px;
+      background-color: var(--button-background);
+      color: var(--button-text-color);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover, #theme-toggle:hover, #lang-toggle:hover {
+      background-color: #0056b3;
+    }
+
+    #controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      nav ul li {
+        display: block;
+        margin: 10px 0;
+      }
+      #controls {
+        flex-direction: column;
+      }
+    }
+
+    .ambulance-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: red;
+      color: white;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      font-size: 2.5rem;
+      z-index: 999;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: var(--header-background);
+      color: var(--header-text-color);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1 id="main-title"> 🏥 Hospital Management System</h1>
+    <nav>
+      <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="patient-portal.html">Patient Portal</a></li>
+                <li><a href="about.html">About Us</a></li>      
+    </ul>
+    </nav>
+  </header>
+
+  <div class="hero-banner">
+    <img src="https://images.unsplash.com/photo-1576765607924-94d998cf01f3?crop=entropy&cs=tinysrgb&fit=crop&h=400&w=1200" alt="Hospital Banner">
+  </div>
+
+  <main>
+    <div style="text-align:center;">
+      <button id="theme-toggle" class="button">🌙 Theme</button>
+      <button id="lang-toggle" class="button">🌐 Hindi</button>
+    </div>
+
+    <section>
+      <h2 id="services-title">Healthcare Services</h2>
+      <p id="services-desc">We offer a wide range of healthcare services including:</p>
+      <ul>
+        <li>Emergency Care</li>
+        <li>Outpatient Services</li>
+        <li>Inpatient Services</li>
+        <li>Specialized Treatments</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 id="additional-title">Additional Services</h2>
+      <ul>
+        <li>Physical Therapy</li>
+        <li>Laboratory Services</li>
+        <li>Radiology</li>
+        <li>Nutrition Counseling</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 id="support-title">Patient Support Services</h2>
+      <p id="support-desc">We also provide various support services to enhance patient care:</p>
+      <ul>
+        <li>Patient Education Programs</li>
+        <li>Social Work Services</li>
+        <li>Spiritual Care</li>
+        <li>Transportation Services</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 id="pricing-title">Service Pricing</h2>
+      <table>
+        <tr>
+          <th>Service</th>
+          <th>Price (₹)</th>
+        </tr>
+        <tr>
+          <td>Emergency Care</td>
+          <td>2000</td>
+        </tr>
+        <tr>
+          <td>Outpatient Services</td>
+          <td>1500</td>
+        </tr>
+        <tr>
+          <td>Inpatient Services</td>
+          <td>2000 per day</td>
+        </tr>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Hospital Management System. All rights reserved.</p>
+  </footer>
+  <a href="tel:108" class="ambulance-float" title="Call Ambulance">🚑</a>   /*ambulance*/
+<script>
+// Theme toggle
+const toggleButton = document.getElementById('theme-toggle');
+
+if (localStorage.getItem('theme') === 'night') {
+    document.documentElement.setAttribute('data-theme', 'night');
+    toggleButton.textContent = '☀️';
+} else {
+    document.documentElement.setAttribute('data-theme', 'day');
+    toggleButton.textContent = '🌙';
+}
+
+toggleButton.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    if (currentTheme === 'night') {
+        document.documentElement.setAttribute('data-theme', 'day');
+        localStorage.setItem('theme', 'day');
+        toggleButton.textContent = '🌙';
+    } else {
+        document.documentElement.setAttribute('data-theme', 'night');
+        localStorage.setItem('theme', 'night');
+        toggleButton.textContent = '☀️';
+    }
+});
+
+// FIX: Declare both variables
+const langToggleButton = document.getElementById('lang-toggle');
+let isHindi = false;
+
+langToggleButton.addEventListener('click', () => {
+    if (isHindi) {
+        document.getElementById('main-title').textContent = "🏥 Hospital Management System";
+        document.getElementById('services-title').textContent = "Healthcare Services";
+        document.getElementById('services-desc').textContent = "We offer a wide range of healthcare services including:";
+        document.getElementById('additional-title').textContent = "Additional Services";
+        document.getElementById('support-title').textContent = "Patient Support Services";
+        document.getElementById('support-desc').textContent = "We also provide various support services to enhance patient care:";
+        document.getElementById('pricing-title').textContent = "Service Pricing";
+        langToggleButton.textContent = "🌐 English";
+    } else {
+        document.getElementById('main-title').textContent = "🏥 अस्पताल प्रबंधन प्रणाली";
+        document.getElementById('services-title').textContent = "स्वास्थ्य सेवा";
+        document.getElementById('services-desc').textContent = "हम विभिन्न स्वास्थ्य सेवाएं प्रदान करते हैं, जिनमें शामिल हैं:";
+        document.getElementById('additional-title').textContent = "अतिरिक्त सेवाएं";
+        document.getElementById('support-title').textContent = "रोगी सहायता सेवाएं";
+        document.getElementById('support-desc').textContent = "हम रोगी देखभाल बढ़ाने के लिए विभिन्न सहायता सेवाएं भी प्रदान करते हैं:";
+        document.getElementById('pricing-title').textContent = "सेवा मूल्य निर्धारण";
+        langToggleButton.textContent = "🌐 Hindi";
+    }
+    isHindi = !isHindi;
+});
+</script>
+<script src="theme.js"></script>
+</body>
+</html>

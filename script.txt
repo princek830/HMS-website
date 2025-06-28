@@ -1,0 +1,6 @@
+<script>
+    const toggleTheme = () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        document.documentElement.setAttribute('data-theme', currentTheme === 'night' ? 'day' : 'night');
+    };
+</script>

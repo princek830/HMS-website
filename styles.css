@@ -1,0 +1,186 @@
+/* styles.css */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@400;700&display=swap');
+
+/* CSS Variables for Light Mode */
+:root {
+    --background-color: #f9f9f9;
+    --text-color: #2c3e50;
+    --header-background: linear-gradient(to right, #ff4e50, #f9d423); /* Red gradient */
+    --header-text-color: #ffffff;
+    --button-background: #3498db;
+    --button-text-color: #ffffff;
+    --link-color: #2980b9;
+    --link-hover-color: #1abc9c;
+    --section-background: #ffffff;
+    --section-shadow: rgba(0, 0, 0, 0.05);
+}
+
+/* CSS Variables for Dark Mode */
+[data-theme='night'] {
+    --background-color: #121212;
+    --text-color: #e0e0e0;
+    --header-background: linear-gradient(to right, #1A1A2E, #1f1c18); /* Soft Dark Purple */
+    --header-text-color: #ffffff;
+    --button-background: #1abc9c;
+    --button-text-color: #ffffff;
+    --link-color: #1abc9c;
+    --link-hover-color: #16a085;
+    --section-background: #1e1e1e;
+    --section-shadow: rgba(255, 255, 255, 0.05);
+}
+/* Global Styles */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Header Styles */
+header {
+    background: var(--header-background);
+    color: var(--header-text-color);
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 10px var(--section-shadow);
+}
+
+/*title background image */
+ header h1 {
+      position: relative;
+      padding: 40px 20px;
+      background: url('https://media.istockphoto.com/id/638377134/photo/doctor-man-with-stethoscope-in-hospital.jpg?s=2048x2048&w=is&k=20&c=wmTKy8oac1j4PfFnJxCO-7TBho4R2lNlWzMm0Rl1gvs=') center/cover no-repeat;
+      background-blend-mode: overlay;
+      background-color: rgba(0, 0, 0, 0.4); /* dark overlay */
+      color: #ffffff;
+      font-size: 2.5rem;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+
+/* Navigation Styles */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: var(--header-text-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s, transform 0.3s;
+}
+
+nav ul li a:hover {
+    color: var(--link-hover-color);
+    transform: scale(1.1);
+}
+
+/* Main Content Styles */
+main {
+    padding: 20px;
+}
+
+/* Section Styles */
+section {
+    background: var(--section-background);
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px var(--section-shadow);
+}
+
+/* Heading Styles */
+h1, h2, h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-color);
+    margin-top: 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 2.5em;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+/* Paragraph Styles */
+p {
+    margin-bottom: 15px;
+}
+
+/* Button Styles */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--button-background);
+    color: var(--button-text-color);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: var(--link-hover-color);
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 15px;
+    background: var(--header-background);
+    color: var(--header-text-color);
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+.search-input {
+  background-color: white;
+  color: var(--text-color);
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+}
+

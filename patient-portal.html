@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hospital Management System</title>
+  <style>
+    :root {
+      --background-color: #f4f4f4;
+      --text-color: #333;
+      --header-background: linear-gradient(to right, #8e0e00, #1f1c18);
+      --header-text-color: #ffffff;
+      --button-background: #007bff;
+      --button-text-color: #ffffff;
+      --section-background: rgba(255, 255, 255, 0.95);
+    }
+    [data-theme="night"] {
+      --background-color: #121212;
+      --text-color: #f1f1f1;
+      --header-background: linear-gradient(to right, #1A1A2E, #1f1c18);
+      --header-text-color: #ffffff;
+      --button-background: #5cb85c;
+      --button-text-color: #ffffff;
+      --section-background: rgba(30, 30, 30, 0.95);
+    }
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+    header {
+      background: var(--header-background);
+      color: var(--header-text-color);
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      position: relative;
+      padding: 40px 20px;
+      background: url('https://media.istockphoto.com/id/638377134/photo/doctor-man-with-stethoscope-in-hospital.jpg?s=2048x2048&w=is&k=20&c=wmTKy8oac1j4PfFnJxCO-7TBho4R2lNlWzMm0Rl1gvs=') center/cover no-repeat;
+      background-blend-mode: overlay;
+      background-color: rgba(0, 0, 0, 0.4);
+      color: #ffffff;
+      font-size: 2.5rem;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 0;
+    }
+    nav ul li {
+      display: inline-block;
+      margin: 0 15px;
+    }
+    nav ul li a {
+      color: var(--header-text-color);
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: transform 0.3s, color 0.3s;
+    }
+    nav ul li a:hover {
+      color: #ffcc00;
+      transform: scale(1.1);
+      text-decoration: underline;
+    }
+    .hero-banner {
+      position: relative;
+      overflow: hidden;
+      max-height: 400px;
+    }
+    .hero-banner img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+    main {
+      padding: 20px;
+    }
+    section {
+      background: var(--section-background);
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: background 0.5s;
+    }
+    h2 {
+      color: var(--header-background);
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #35424a;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+    .button, #theme-toggle, #lang-toggle {
+     display: inline-block;
+     padding: 10px 20px;
+     margin: 10px;
+     background-color: var(--button-background);
+     color: var(--button-text-color);
+     border: none;
+     border-radius: 8px;
+     cursor: pointer;
+     font-size: 1rem;
+     transition: background-color 0.3s;
+     text-decoration: none; /* for revoming the underline  */
+    }
+    .button:hover, #theme-toggle:hover, #lang-toggle:hover {
+      background-color: #0056b3;
+    }
+    @media (max-width: 600px) {
+      nav ul li {
+        display: block;
+        margin: 10px 0;
+      }
+    }
+    .ambulance-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: red;
+      color: white;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      font-size: 2.5rem;
+      z-index: 999;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="main-title"> 🏥 Hospital Management System</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="patient-portal.html">Patient Portal</a></li>
+        <li><a href="about.html">About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <button id="theme-toggle" class="button">🌙</button>
+    <button id="lang-toggle" class="button">🌐 Hindi</button>
+    <section>
+      <h2 id="welcome">Welcome to the Patient Portal</h2>
+      <p>Here you can manage your appointments, view your medical records, and communicate with your healthcare providers.</p>
+    </section>
+    <section>
+      <h2 id="appointments">Manage Your Appointments</h2>
+      <p>View, book, or cancel your appointments easily.</p>
+      <a id="goToAppointments" href="appointments.html" class="button">Go to Appointments</a>
+    </section>
+    <section>
+      <h2 id="records">Access Your Medical Records</h2>
+      <p>View your medical history and lab results.</p>
+      <a id="viewRecords" href="patient-records.html" class="button">View Records</a>
+    </section>
+    <section>
+    <h2 id="feedback-title">Feedback</h2>
+      <p>We value your feedback. Please let us know about your experience.</p>
+      <a id="submitFeedback" href="feedback.html" class="button">Submit Feedback</a>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025 Hospital Management System. All rights reserved.</p>
+  </footer>
+  <a href="tel:108" class="ambulance-float" title="Call Ambulance">🚑</a>
+
+  <script>
+// Theme toggle
+const toggleButton = document.getElementById('theme-toggle');
+
+if (localStorage.getItem('theme') === 'night') {
+    document.documentElement.setAttribute('data-theme', 'night');
+    toggleButton.textContent = '🌙';
+} else {
+    document.documentElement.setAttribute('data-theme', 'day');
+    toggleButton.textContent = '☀️';
+}
+
+toggleButton.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    if (currentTheme === 'night') {
+        document.documentElement.setAttribute('data-theme', 'day');
+        localStorage.setItem('theme', 'day');
+        toggleButton.textContent = '☀️';
+    } else {
+        document.documentElement.setAttribute('data-theme', 'night');
+        localStorage.setItem('theme', 'night');
+        toggleButton.textContent = '🌙';
+    }
+});
+
+    const translations = {
+      en: {
+        welcome: "Welcome to the Patient Portal",
+        appointments: "Manage Your Appointments",
+        records: "Access Your Medical Records",
+        feedback: "Feedback",
+        goToAppointments: "Go to Appointments",
+        viewRecords: "View Records",
+        submitFeedback: "Submit Feedback",
+      },
+      hi: {
+        welcome: "रोगी पोर्टल में आपका स्वागत है",
+        appointments: "अपनी नियुक्तियाँ प्रबंधित करें",
+        records: "अपना मेडिकल रिकॉर्ड देखें",
+        feedback: "प्रतिक्रिया",
+        goToAppointments: "नियुक्तियाँ देखें",
+        viewRecords: "रिकॉर्ड देखें",
+        submitFeedback: "प्रतिक्रिया दें",
+      }
+    };
+
+    let currentLang = localStorage.getItem('lang') || 'en';
+    const langToggle = document.getElementById('lang-toggle');
+
+    function translate(lang) {
+      document.getElementById('welcome').textContent = translations[lang].welcome;
+      document.getElementById('appointments').textContent = translations[lang].appointments;
+      document.getElementById('records').textContent = translations[lang].records;
+      document.getElementById('feedback-title').textContent = translations[lang].feedback;
+      document.getElementById('goToAppointments').textContent = translations[lang].goToAppointments;
+      document.getElementById('viewRecords').textContent = translations[lang].viewRecords;
+      document.getElementById('submitFeedback').textContent = translations[lang].submitFeedback;
+    }
+
+    translate(currentLang);
+langToggle.textContent = currentLang === 'en' ? '🌐 English' : '🌐 Hindi';
+
+langToggle.addEventListener("click", () => {
+  currentLang = currentLang === 'en' ? 'hi' : 'en';
+  localStorage.setItem('lang', currentLang);
+  translate(currentLang);
+  langToggle.textContent = currentLang === 'en' ? '🌐 English' : '🌐 Hindi';
+});
+  </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+add window of submit feedback 
+and also add how user add feedback and it show to the window 
+even add how to add the blog content (updated by the user and it show int he website directly ) 
+add the search option of doctor or hospital 
+make the medicine option where people directly go and buy the medicine online with the help of online platform 
+add the ambulance option like on click the log option will open 
+add how to book the bed option in hospital 
+add the ai option that suggest which hospital is best or which doctor is best 
+working of appointment booking if a user is booking the appointment is confirm or pending shown to us 
+medical records of patient 
+
+/*WHAT WE USE IN THIS WEBSITE */
+we using node .js for java script which is fast and use in backend 
+and in frontend we use html css some parts of js for setting theme of toggle button 
+ 
+npm (Node Package Manager) is like an app store for Node.js.
+which is use to to instal express.js 
+it helps like we use login or register it help in this 
+for flexible data we use mongodb insted of my sql 
+
+To summarize what you’ll use:
+
+Purpose	Tool
+Server backend	Node.js + Express
+Package manager	npm
+Authentication	bcrypt + express-session
+Database	MongoDB (with Mongoose)
+* use the <main> for doctor search on the top 
+* add place holder avtar icon that hide the name of the doctor directly firstly match then show the name 
+
+<including show all doctors >
+
+ Feature                       Description                                  
+  Advanced Search  -   Filter by symptom, specialty, location       
+  Dynamic Doctor Profiles - Show real-time info when selected           
+  Symptom Checker AI  -  Recommend specialists based on natural input 
+  Chatbot Interface  -  Guide users with questions                   
+  Smart Translation  - Translate all dynamic text                   
+  “Near You” Suggestions  - Based on location / past use                 

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hospital Management System</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Link to CSS file -->
+
+  <style>
+    :root {
+      --background-color: #f4f4f4;
+      --text-color: #333;
+      --header-background: linear-gradient(to right, #8e0e00, #1f1c18);
+      --header-text-color: #ffffff;
+      --button-background: #007bff;
+      --button-text-color: #ffffff;
+      --section-background: rgba(255, 255, 255, 0.95);
+    }
+
+    [data-theme="night"] {
+      --background-color: #121212;
+      --text-color: #f1f1f1;
+      --header-background: linear-gradient(to right, #1A1A2E, #1f1c18);
+      --header-text-color: #ffffff;
+      --button-background: #5cb85c;
+      --button-text-color: #ffffff;
+      --section-background: rgba(30, 30, 30, 0.95);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+
+    header {
+      background: var(--header-background);
+      color: var(--header-text-color);
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      position: relative;
+      padding: 40px 20px;
+      background: url('https://media.istockphoto.com/id/638377134/photo/doctor-man-with-stethoscope-in-hospital.jpg?s=2048x2048&w=is&k=20&c=wmTKy8oac1j4PfFnJxCO-7TBho4R2lNlWzMm0Rl1gvs=') center/cover no-repeat;
+      background-blend-mode: overlay;
+      background-color: rgba(0, 0, 0, 0.4);
+      color: #ffffff;
+      font-size: 2.5rem;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 0;
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      color: var(--header-text-color);
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: transform 0.3s, color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #ffcc00;
+      transform: scale(1.1);
+      text-decoration: underline;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    section {
+      background: var(--section-background);
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: var(--header-background);
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #35424a;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+
+    .button, #theme-toggle, #lang-toggle {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 10px;
+      background-color: var(--button-background);
+      color: var(--button-text-color);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover, #theme-toggle:hover, #lang-toggle:hover {
+      background-color: #0056b3;
+    }
+
+    #controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+      nav ul li {
+        display: block;
+        margin: 10px 0;
+      }
+      #controls {
+        flex-direction: column;
+      }
+    }
+
+    .ambulance-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: red;
+      color: white;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      font-size: 2.5rem;
+      z-index: 999;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+     </style>
+     </head>
+    <body>
+    <header>
+        <h1>Frequently Asked Questions (FAQ)</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html" id="nav-home">Home</a></li>
+                <li><a href="about.html" id="nav-about">About Us</a></li>
+                <li><a href="blog.html">Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+    <button id="theme-toggle" class="button">🌙</button> <!-- Moon symbol for night mode -->
+        <section>
+            <h2>General Questions</h2>
+            <h3>1. What services do you offer?</h3>
+            <p>We offer a wide range of healthcare services including emergency care, outpatient services, inpatient services, and specialized treatments.</p>
+
+            <h3>2. How can I make an appointment?</h3>
+            <p>You can make an appointment by calling our office or using the online appointment scheduling feature in the Patient Portal.</p>
+
+            <h3>3. What should I bring to my appointment?</h3>
+            <p>Please bring your insurance card, a valid ID, and any relevant medical records or medications.</p>
+        </section>
+        <section>
+            <h2>Billing and Insurance</h2>
+            <h3>1. Do you accept insurance?</h3>
+            <p>Yes, we accept a variety of insurance plans. Please contact our billing department for more information.</p>
+
+            <h3>2. How can I pay my bill?</h3>
+            <p>You can pay your bill online through the Patient Portal, by mail, or in person at our office.</p>
+        </section>
+        <section>
+            <h2>Contact Information</h2>
+            <h3>1. How can I contact the hospital?</h3>
+            <p>You can reach us by phone at (123) 456-7890 or by email at info@hospital.com.</p>
+
+            <h3>2. What are your hours of operation?</h3>
+            <p>We are open 24/7 for emergency services. Our outpatient services are available from 8 AM to 5 PM, Monday through Friday.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Hospital Management System. All rights reserved.</p>
+    </footer>
+<script>
+// Theme toggle
+const toggleButton = document.getElementById('theme-toggle');
+
+if (localStorage.getItem('theme') === 'night') {
+    document.documentElement.setAttribute('data-theme', 'night');
+    toggleButton.textContent = '🌙';
+} else {
+    document.documentElement.setAttribute('data-theme', 'day');
+    toggleButton.textContent = '☀️';
+}
+
+toggleButton.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    if (currentTheme === 'night') {
+        document.documentElement.setAttribute('data-theme', 'day');
+        localStorage.setItem('theme', 'day');
+        toggleButton.textContent = '☀️';
+    } else {
+        document.documentElement.setAttribute('data-theme', 'night');
+        localStorage.setItem('theme', 'night');
+        toggleButton.textContent = '🌙';
+    }
+});
+
+</script>
+
+<script src="theme.js">
+</script>
+
+</body>
+</html>
