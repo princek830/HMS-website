@@ -200,65 +200,69 @@
       <button id="lang-toggle" class="button">🌐 Hindi</button>
     </div>
 
-    <section>
-      <h2 id="services-title">Healthcare Services</h2>
-      <p id="services-desc">We offer a wide range of healthcare services including:</p>
-      <ul>
-        <li>Emergency Care</li>
-        <li>Outpatient Services</li>
-        <li>Inpatient Services</li>
-        <li>Specialized Treatments</li>
-      </ul>
-    </section>
+ <!-- Search Form -->
+  <div class="search-bar">
+    <form action="services.html" method="GET">
+      <input type="text" name="query" placeholder="Search doctor or specialty..." required>
+      <button type="submit">Search</button>
+    </form>
+  </div>
 
-    <section>
-      <h2 id="additional-title">Additional Services</h2>
-      <ul>
-        <li>Physical Therapy</li>
-        <li>Laboratory Services</li>
-        <li>Radiology</li>
-        <li>Nutrition Counseling</li>
-      </ul>
-    </section>
+  <div id="result">
+    <!-- Doctor results will be shown here -->
+  </div>
 
-    <section>
-      <h2 id="support-title">Patient Support Services</h2>
-      <p id="support-desc">We also provide various support services to enhance patient care:</p>
-      <ul>
-        <li>Patient Education Programs</li>
-        <li>Social Work Services</li>
-        <li>Spiritual Care</li>
-        <li>Transportation Services</li>
-      </ul>
-    </section>
+</main>
 
-    <section>
-      <h2 id="pricing-title">Service Pricing</h2>
-      <table>
-        <tr>
-          <th>Service</th>
-          <th>Price (₹)</th>
-        </tr>
-        <tr>
-          <td>Emergency Care</td>
-          <td>2000</td>
-        </tr>
-        <tr>
-          <td>Outpatient Services</td>
-          <td>1500</td>
-        </tr>
-        <tr>
-          <td>Inpatient Services</td>
-          <td>2000 per day</td>
-        </tr>
-      </table>
-    </section>
-  </main>
+<script>
+  // Helper to get ?query= from URL
+  function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
+
+  const query = getQueryParam('query');
+  const resultContainer = document.getElementById('result');
+
+  const doctors = [
+    { name: "Dr. Rp yadav", specialty: "Cardiologist", fee: "₹800", time: "10am - 2pm" },
+    { name: "Dr. vikash gupta", specialty: "Orthopedic", fee: "₹600", time: "11am - 3pm" },
+    { name: "Dr. Meena", specialty: "Gynecologist", fee: "₹700", time: "9am - 1pm" },
+    { name: "Dr. Arora", specialty: "Neurologist", fee: "₹1000", time: "12pm - 4pm" },
+    { name: "Dr. Khan", specialty: "Dermatologist", fee: "₹500", time: "10am - 1pm" }
+  ];
+
+  if (query && query.trim() !== "") {
+    const filtered = doctors.filter(doc =>
+      doc.name.toLowerCase().includes(query.toLowerCase()) ||
+      doc.specialty.toLowerCase().includes(query.toLowerCase())
+    );
+
+    if (filtered.length > 0) {
+      filtered.forEach(doc => {
+        resultContainer.innerHTML += `
+          <div class="doctor-card">
+            <h3>${doc.name}</h3>
+            <p><strong>Specialty:</strong> ${doc.specialty}</p>
+            <p><strong>Consultation Fee:</strong> ${doc.fee}</p>
+            <p><strong>Available Time:</strong> ${doc.time}</p>
+          </div>
+        `;
+      });
+    } else {
+      resultContainer.innerHTML = "<p>No doctor found for this search.</p>";
+    }
+  } else {
+    resultContainer.innerHTML = "<p>Please use the search box above to find a doctor.</p>";
+  }
+</script>
 
   <footer>
     <p>&copy; 2025 Hospital Management System. All rights reserved.</p>
   </footer>
-  <a href="tel:108" class="ambulance-float" title="Call Ambulance">🚑</a>   /*ambulance*/
+
+  <a href="tel:108" class="ambulance-float" title="Call Ambulance">🚑</a> 
+
 <script>
 // Theme toggle
 const toggleButton = document.getElementById('theme-toggle');
@@ -310,7 +314,10 @@ langToggleButton.addEventListener('click', () => {
     }
     isHindi = !isHindi;
 });
+
 </script>
+
+
 <script src="theme.js"></script>
 </body>
 </html>
