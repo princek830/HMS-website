@@ -172,6 +172,12 @@
       background-color: var(--header-background);
       color: var(--header-text-color);
     }
+#google_translate_element {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
   </style>
 </head>
 
@@ -179,6 +185,7 @@
 
   <header>
     <h1 id="main-title"> 🏥 Hospital Management System</h1>
+    <div id="google_translate_element"></div>
     <nav>
       <ul>
                 <li><a href="index.html">Home</a></li>
@@ -288,36 +295,17 @@ toggleButton.addEventListener('click', () => {
     }
 });
 
-// FIX: Declare both variables
-const langToggleButton = document.getElementById('lang-toggle');
-let isHindi = false;
-
-langToggleButton.addEventListener('click', () => {
-    if (isHindi) {
-        document.getElementById('main-title').textContent = "🏥 Hospital Management System";
-        document.getElementById('services-title').textContent = "Healthcare Services";
-        document.getElementById('services-desc').textContent = "We offer a wide range of healthcare services including:";
-        document.getElementById('additional-title').textContent = "Additional Services";
-        document.getElementById('support-title').textContent = "Patient Support Services";
-        document.getElementById('support-desc').textContent = "We also provide various support services to enhance patient care:";
-        document.getElementById('pricing-title').textContent = "Service Pricing";
-        langToggleButton.textContent = "🌐 English";
-    } else {
-        document.getElementById('main-title').textContent = "🏥 अस्पताल प्रबंधन प्रणाली";
-        document.getElementById('services-title').textContent = "स्वास्थ्य सेवा";
-        document.getElementById('services-desc').textContent = "हम विभिन्न स्वास्थ्य सेवाएं प्रदान करते हैं, जिनमें शामिल हैं:";
-        document.getElementById('additional-title').textContent = "अतिरिक्त सेवाएं";
-        document.getElementById('support-title').textContent = "रोगी सहायता सेवाएं";
-        document.getElementById('support-desc').textContent = "हम रोगी देखभाल बढ़ाने के लिए विभिन्न सहायता सेवाएं भी प्रदान करते हैं:";
-        document.getElementById('pricing-title').textContent = "सेवा मूल्य निर्धारण";
-        langToggleButton.textContent = "🌐 Hindi";
-    }
-    isHindi = !isHindi;
-});
-
 </script>
-
-
+<!-- ✅ Google Translate Script -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      { pageLanguage: 'en' },
+      'google_translate_element'
+    );
+  }
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script src="theme.js"></script>
 </body>
 </html>

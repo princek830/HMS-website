@@ -187,11 +187,19 @@
       transform: scale(1.07);
       box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
     }
+#google_translate_element {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
   </style>
 </head>
 <body>
   <header>
     <h1 id="header-title"> 🏥 Hospital Management System</h1>
+    <div id="google_translate_element"></div>
+
     <nav>
       <ul>
         <li><a href="index.html" id="nav-home">Home</a></li>
@@ -206,10 +214,8 @@
   <main>
     <div style="text-align:center;">
       <button id="theme-toggle" class="button">🌙 Theme</button>
-      <button id="lang-toggle" class="button">🌐 Hindi</button>
     </div>
    
-
     <section>
           <h2>🔍 Search for a Doctor</h2>
           <input
@@ -336,74 +342,17 @@ toggleButton.addEventListener('click', () => {
         toggleButton.textContent = '🌙';
     }
 });
-    // Language toggle
-    const langToggleButton = document.getElementById('lang-toggle');
-    let currentLang = 'en';
-
-const translations = {
-  en: {
-    header: "Hospital Management System",
-    home: "Home",
-    services: "Services",
-    contact: "Contact Us",
-    patient: "Patient Portal",
-    about: "About Us",
-    getTouch: "Get in Touch",
-    getTouchDesc: "If you have any questions, feel free to reach out to us:",
-    labelName: "Name:",
-    labelEmail: "Email:",
-    labelMessage: "Message:",
-    contactInfo: "Contact Information",
-    contactInfoDesc: "For immediate assistance, you can contact us through the following:",
-    followUs: "Follow Us",
-    followUsDesc: "Stay connected with us on social media:",
-    doctorSearch: "Search for a Doctor" 
-  },
-  hi: {
-    header: "अस्पताल प्रबंधन प्रणाली",
-    home: "मुखपृष्ठ",
-    services: "सेवाएं",
-    contact: "संपर्क करें",
-    patient: "रोगी पोर्टल",
-    about: "हमारे बारे में",
-    getTouch: "संपर्क करें",
-    getTouchDesc: "यदि आपके कोई प्रश्न हैं, तो बेझिझक हमसे संपर्क करें:",
-    labelName: "नाम:",
-    labelEmail: "ईमेल:",
-    labelMessage: "संदेश:",
-    contactInfo: "संपर्क जानकारी",
-    contactInfoDesc: "तत्काल सहायता के लिए आप हमसे संपर्क कर सकते हैं:",
-    followUs: "हमें फॉलो करें",
-    followUsDesc: "हमारे साथ सोशल मीडिया पर जुड़े रहें:",
-    doctorSearch: "डॉक्टर खोजें" 
+    </script>
+<!-- ✅ Google Translate Script -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      { pageLanguage: 'en' },
+      'google_translate_element'
+    );
   }
-};
-
-
-    langToggleButton.addEventListener('click', () => {
-      currentLang = currentLang === 'en' ? 'hi' : 'en';
-      const t = translations[currentLang];
-
-      document.getElementById('header-title').textContent = t.header;
-      document.getElementById('nav-home').textContent = t.home;
-      document.getElementById('nav-services').textContent = t.services;            /*additional */
-      document.getElementById('nav-contact').textContent = t.contact;
-      document.getElementById('nav-patient').textContent = t.patient;
-      document.getElementById('nav-about').textContent = t.about;
-      document.getElementById('get-touch').textContent = t.getTouch;
-      document.getElementById('get-touch-desc').textContent = t.getTouchDesc;
-      document.getElementById('label-name').textContent = t.labelName;
-      document.getElementById('label-email').textContent = t.labelEmail;
-      document.getElementById('label-message').textContent = t.labelMessage;
-      document.getElementById('contact-info').textContent = t.contactInfo;
-      document.getElementById('contact-info-desc').textContent = t.contactInfoDesc;
-      document.getElementById('follow-us').textContent = t.followUs;
-      document.getElementById('follow-us-desc').textContent = t.followUsDesc;
-      document.getElementById('search-title').textContent = `🔍 ${t.doctorSearch}`;   // not working 
-
-      langToggleButton.textContent = currentLang ==='en' ?  '🌐 Hindi':'🌐 English';
-    });
 </script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script src="theme.js"></script>
 <script>
   const doctorInput = document.getElementById('doctorSearch');
