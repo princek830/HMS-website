@@ -35,13 +35,13 @@
       color: var(--header-text-color);
       padding: 20px;
       text-align: center;
+      position: relative;
     }
     header h1 {
-      position: relative;
       padding: 40px 20px;
       background: url('https://media.istockphoto.com/id/638377134/photo/doctor-man-with-stethoscope-in-hospital.jpg?s=2048x2048&w=is&k=20&c=wmTKy8oac1j4PfFnJxCO-7TBho4R2lNlWzMm0Rl1gvs=') center/cover no-repeat;
       background-blend-mode: overlay;
-      background-color: rgba(0, 0, 0, 0.4); /* dark overlay */
+      background-color: rgba(0, 0, 0, 0.4);
       color: #ffffff;
       font-size: 2.5rem;
       border-radius: 10px;
@@ -63,14 +63,6 @@
     }
     nav ul li a:hover {
       color: #ffcc00;
-    }
-    .language-selector {
-      margin: 10px 0;
-    }
-    .language-selector select {
-      padding: 5px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
     }
     .button {
       margin-top: 10px;
@@ -110,7 +102,7 @@
         margin: 5px 0;
       }
     }
-   .ambulance-float {
+    .ambulance-float {
       position: fixed;
       bottom: 20px;
       right: 20px;
@@ -127,33 +119,26 @@
       justify-content: center;
       text-decoration: none;
     }
-
+    #google_translate_element {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
   </style>
 </head>
 <body>
-
 <header>
   <h1 id="header-title">🏥 Hospital Management System</h1>
+  <div id="google_translate_element"></div> <!--google tranlation-->
   <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="services.html">Services</a></li>
       <li><a href="contact.html">Contact Us</a></li>
       <li><a href="patient-portal.html">Patient Portal</a></li>
-      <li><a href="about.html">About Us</a></li>    
+      <li><a href="about.html">About Us</a></li>
     </ul>
   </nav>
-
-  <div class="language-selector">
-    <label for="language">🌐 Select Language:</label>
-    <select id="language" onchange="changeLanguage()">
-      <option value="en">English</option>
-      <option value="hi">Hindi</option>
-      <option value="ta">Tamil</option>
-      <option value="fr">French</option>
-    </select>
-  </div>
-
   <button id="theme-toggle" class="button">🌙</button>
 </header>
 
@@ -246,69 +231,21 @@ toggleButton.addEventListener('click', () => {
     }
 });
 
-// Language changer
-function changeLanguage() {
-    const lang = document.getElementById('language').value;
-    const translations = {
-        hi: {
-            header: "🏥 अस्पताल प्रबंधन प्रणाली",
-            welcome: "हमारे अस्पताल में आपका स्वागत है",
-            para: "आपका स्वास्थ्य हमारी सर्वोच्च प्राथमिकता है।",
-            features: "🏥 हमारी विशेषताएँ",
-            mission: "🎯 हमारा मिशन",
-            missionPara: "करुणा और सम्मान के साथ उच्च गुणवत्ता वाली स्वास्थ्य सेवा प्रदान करना।",
-            testimonial: "💬 प्रशंसापत्र",
-            news: "📰 ताजा खबरें",
-            team: "👩‍⚕️ हमारी टीम से मिलिए",
-        },
-        en: {
-            header: "🏥 Hospital Management System",
-            welcome: "Welcome to Our Hospital",
-            para: "Your health is our top priority.",
-            features: "🏥 Our Features",
-            mission: "🎯 Our Mission",
-            missionPara: "To provide high-quality healthcare services to our community with compassion and respect.",
-            testimonial: "💬 Testimonials",
-            news: "📰 Latest News",
-            team: "👩‍⚕️ Meet Our Team",
-        },
-        ta: {
-            header: "🏥 மருத்துவமனை மேலாண்மை அமைப்பு",
-            welcome: "எங்கள் மருத்துவமனைக்கு வரவேற்கிறோம்",
-            para: "உங்கள் உடல்நலம் எங்களின் முதன்மை முன்னுரிமை.",
-            features: "🏥 எங்கள் அம்சங்கள்",
-            mission: "🎯 எங்கள் பணி",
-            missionPara: "கருணையுடன் உயர்தர மருத்துவ சேவைகளை வழங்குவது.",
-            testimonial: "💬 பாராட்டுகள்",
-            news: "📰 சமீபத்திய செய்திகள்",
-            team: "👩‍⚕️ எங்கள் குழுவை சந்திக்கவும்",
-        },
-        fr: {
-            header: "🏥 Système de gestion hospitalière",
-            welcome: "Bienvenue dans notre hôpital",
-            para: "Votre santé est notre priorité absolue.",
-            features: "🏥 Nos fonctionnalités",
-            mission: "🎯 Notre mission",
-            missionPara: "Fournir des services de santé de haute qualité avec compassion et respect.",
-            testimonial: "💬 Témoignages",
-            news: "📰 Dernières nouvelles",
-            team: "👩‍⚕️ Rencontrez notre équipe",
-        }
-    };
-
-    const t = translations[lang];
-
-    document.getElementById('header-title').textContent = t.header;
-    document.getElementById('welcome-heading').textContent = t.welcome;
-    document.getElementById('welcome-para').textContent = t.para;
-    document.getElementById('features-heading').textContent = t.features;
-    document.getElementById('mission-heading').textContent = t.mission;
-    document.getElementById('mission-para').textContent = t.missionPara;
-    document.getElementById('testimonial-heading').textContent = t.testimonial;
-    document.getElementById('news-heading').textContent = t.news;
-    document.getElementById('team-heading').textContent = t.team;
-}
 </script>
+
+// Language changer
+
+<!-- ✅ Google Translate Script -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      { pageLanguage: 'en' },
+      'google_translate_element'
+    );
+  }
+</script>
+
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script src="theme.js"></script>
 </body>
 </html>

@@ -57,3 +57,8 @@ function changeLanguage() {
     const testimonialsDiv = document.getElementById('testimonials');
     testimonialsDiv.innerHTML = '';
     translations[selectedLanguage].testimonials.forEach(testimonial => {
+
+const userLang = navigator.language || navigator.userLanguage;
+if (userLang.startsWith("hi")) {
+  // Switch your website content to Hindi
+}

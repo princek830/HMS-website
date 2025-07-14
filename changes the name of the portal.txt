@@ -36,4 +36,5 @@ Database	MongoDB (with Mongoose)
   Symptom Checker AI  -  Recommend specialists based on natural input 
   Chatbot Interface  -  Guide users with questions                   
   Smart Translation  - Translate all dynamic text                   
-  “Near You” Suggestions  - Based on location / past use                 
+  “Near You” Suggestions  - Based on location / past use             
+now iam working on multilanguage that is directly connected to google     
