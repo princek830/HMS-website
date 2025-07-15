@@ -138,11 +138,18 @@
       justify-content: center;
       text-decoration: none;
     }
+#google_translate_element {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
   </style>
 </head>
 <body>
   <header>
     <h1 id="main-title"> 🏥 Hospital Management System</h1>
+    <div id="google_translate_element"></div>
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
@@ -155,7 +162,6 @@
   </header>
   <main>
     <button id="theme-toggle" class="button">🌙</button>
-    <button id="lang-toggle" class="button">🌐 Hindi</button>
     <section>
       <h2 id="welcome">Welcome to the Patient Portal</h2>
       <p>Here you can manage your appointments, view your medical records, and communicate with your healthcare providers.</p>
@@ -206,49 +212,17 @@ toggleButton.addEventListener('click', () => {
     }
 });
 
-    const translations = {
-      en: {
-        welcome: "Welcome to the Patient Portal",
-        appointments: "Manage Your Appointments",
-        records: "Access Your Medical Records",
-        feedback: "Feedback",
-        goToAppointments: "Go to Appointments",
-        viewRecords: "View Records",
-        submitFeedback: "Submit Feedback",
-      },
-      hi: {
-        welcome: "रोगी पोर्टल में आपका स्वागत है",
-        appointments: "अपनी नियुक्तियाँ प्रबंधित करें",
-        records: "अपना मेडिकल रिकॉर्ड देखें",
-        feedback: "प्रतिक्रिया",
-        goToAppointments: "नियुक्तियाँ देखें",
-        viewRecords: "रिकॉर्ड देखें",
-        submitFeedback: "प्रतिक्रिया दें",
-      }
-    };
+     </script>
+<!-- ✅ Google Translate Script -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      { pageLanguage: 'en' },
+      'google_translate_element'
+    );
+  }
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-    let currentLang = localStorage.getItem('lang') || 'en'; 
-    const langToggle = document.getElementById('lang-toggle');
-
-    function translate(lang) {
-      document.getElementById('welcome').textContent = translations[lang].welcome;
-      document.getElementById('appointments').textContent = translations[lang].appointments;
-      document.getElementById('records').textContent = translations[lang].records;
-      document.getElementById('feedback-title').textContent = translations[lang].feedback;
-      document.getElementById('goToAppointments').textContent = translations[lang].goToAppointments;
-      document.getElementById('viewRecords').textContent = translations[lang].viewRecords;
-      document.getElementById('submitFeedback').textContent = translations[lang].submitFeedback;
-    }
-
-    translate(currentLang);
-langToggle.textContent = currentLang === 'en' ? '🌐 English' : '🌐 Hindi';
-
-langToggle.addEventListener("click", () => {
-  currentLang = currentLang === 'en' ? 'hi' : 'en';
-  localStorage.setItem('lang', currentLang);
-  translate(currentLang);
-  langToggle.textContent = currentLang === 'en' ? '🌐 English' : '🌐 Hindi';
-});
-  </script>
 </body>
 </html>

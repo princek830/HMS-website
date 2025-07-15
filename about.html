@@ -154,12 +154,19 @@
       justify-content: center;
       text-decoration: none;
     }
+  #google_translate_element {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
 
 </style>
 </head>
 <body>
     <header>
         <h1>Hospital Management System</h1>
+        <div id="google_translate_element"></div>
+
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -215,6 +222,16 @@ toggleButton.addEventListener('click', () => {
 });
 
 </script>
+<!-- ✅ Google Translate Script -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      { pageLanguage: 'en' },
+      'google_translate_element'
+    );
+  }
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <script src="theme.js"></script>
 </body>
