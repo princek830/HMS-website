@@ -190,6 +190,14 @@
                 </tr>
             </table>
         </section>
+
+<section>
+  <h2>🔐 Blockchain Verified Medical Records</h2>
+  <div id="blockchain-records">
+    <p>Loading verified records...</p>
+  </div>
+</section>
+
     </main>
     <footer>
         <p>&copy; 2025 Hospital Management System. All rights reserved.</p>
@@ -220,5 +228,45 @@
     });
 
     </script>
+<script src="blockchain.js"></script>
+<script>
+  // Example dummy data to simulate loading from blockchain
+  const records = [
+    {
+      date: "2025-04-25",
+      visit: "Check-up",
+      doctor: "Dr. Varun Yadav",
+      notes: "All vitals normal."
+    },
+    {
+      date: "2025-04-25",
+      visit: "Follow-up",
+      doctor: "Dr. Prasoon Mishra",
+      notes: "Prescribed medication for allergy."
+    }
+  ];
+
+  // Assuming blockchain.js has a function addBlock and getBlockchain
+  records.forEach((rec, index) => {
+    addBlock(`Visit ${index + 1}`, rec);
+  });
+
+
+  const blockchainUI = document.getElementById("blockchain-records");
+const allBlocks = getBlockchain();
+
+blockchainUI.innerHTML = `<ul>${
+  allBlocks
+    .slice(1) // ✅ Skip the Genesis Block
+    .map(block => `
+      <li>
+        <strong>${block.data.date} - ${block.data.visit}</strong> with <em>${block.data.doctor}</em><br />
+        Notes: ${block.data.notes}<br />
+        Hash: <code>${block.hash}</code>
+      </li>
+    `).join('')
+}</ul>`;
+</script>
+
 </body>
 </html>
