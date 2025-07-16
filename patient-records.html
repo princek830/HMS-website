@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Hospital Management System</title>
-  <link rel="stylesheet" href="styles.css"> <!-- Link to CSS file -->
-
+  <link rel="stylesheet" href="styles.css">
   <style>
+   <style>
     :root {
       --background-color: #f4f4f4;
       --text-color: #333;
@@ -154,119 +154,167 @@
       text-decoration: none;
     }
     </style>
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Hospital Management System</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="patient-portal.html">Patient Portal</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <button id="theme-toggle" class="button">🌙</button> <!-- Moon symbol for night mode -->
-        <section>
-            <h2>Your Medical History</h2>
-            <table>
-                <tr>
-                    <th>Date</th>
-                    <th>Visit Type</th>
-                    <th>Doctor</th>
-                    <th>Notes</th>
-                </tr>
-                <tr>
-                    <td>2025-04-25</td>
-                    <td>Check-up</td>
-                    <td>Dr. Varun yadav</td>
-                    <td>All vitals normal.</td>
-                </tr>
-                <tr>
-                    <td>2025-04-25</td>
-                    <td>Follow-up</td>
-                    <td>Dr. Prasoon mishra </td>
-                    <td>Prescribed medication for allergy.</td>
-                </tr>
-            </table>
-        </section>
+  <header>
+    <h1>Hospital Management System</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="patient-portal.html">Patient Portal</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<section>
-  <h2>🔐 Blockchain Verified Medical Records</h2>
-  <div id="blockchain-records">
-    <p>Loading verified records...</p>
-  </div>
-</section>
+  <main>
+    <button id="theme-toggle" class="button">🌙</button>
 
-    </main>
-    <footer>
-        <p>&copy; 2025 Hospital Management System. All rights reserved.</p>
-    </footer>
-    <a href="tel:108" class="ambulance-float" title="Call Ambulance">🚑</a>
-    <script>
-    // Theme toggle
+    <section>
+      <h2>Your Medical History</h2>
+      <table>
+        <tr>
+          <th>Date</th>
+          <th>Visit Type</th>
+          <th>Doctor</th>
+          <th>Notes</th>
+        </tr>
+        <tr>
+          <td>2025-04-25</td>
+          <td>Check-up</td>
+          <td>Dr. Varun Yadav</td>
+          <td>All vitals normal.</td>
+        </tr>
+        <tr>
+          <td>2025-04-25</td>
+          <td>Follow-up</td>
+          <td>Dr. Prasoon Mishra</td>
+          <td>Prescribed medication for allergy.</td>
+        </tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>🔐 Blockchain Verified Medical Records</h2>
+      <div id="blockchain-records">
+        <p>Loading verified records...</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Hospital Management System. All rights reserved.</p>
+  </footer>
+
+  <a href="tel:108" class="ambulance-float" title="Call Ambulance">🚑</a>
+
+  <!-- 🌙 Theme toggle -->
+  <script>
     const toggleButton = document.getElementById('theme-toggle');
     if (localStorage.getItem('theme') === 'night') {
-        document.documentElement.setAttribute('data-theme', 'night');
-        toggleButton.textContent = '☀️';
+      document.documentElement.setAttribute('data-theme', 'night');
+      toggleButton.textContent = '☀️';
     } else {
-        document.documentElement.setAttribute('data-theme', 'day');
-        toggleButton.textContent = '🌙';
+      document.documentElement.setAttribute('data-theme', 'day');
+      toggleButton.textContent = '🌙';
     }
 
     toggleButton.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        if (currentTheme === 'night') {
-            document.documentElement.setAttribute('data-theme', 'day');
-            localStorage.setItem('theme', 'day');
-            toggleButton.textContent = '🌙';
-        } else {
-            document.documentElement.setAttribute('data-theme', 'night');
-            localStorage.setItem('theme', 'night');
-            toggleButton.textContent = '☀️';
-        }
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      if (currentTheme === 'night') {
+        document.documentElement.setAttribute('data-theme', 'day');
+        localStorage.setItem('theme', 'day');
+        toggleButton.textContent = '🌙';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'night');
+        localStorage.setItem('theme', 'night');
+        toggleButton.textContent = '☀️';
+      }
+    });
+  </script>
+
+  <!-- 🧱 Blockchain Logic -->
+  <script>
+    class Block {
+      constructor(index, timestamp, data, previousHash = '') {
+        this.index = index;
+        this.timestamp = timestamp;
+        this.data = data;
+        this.previousHash = previousHash;
+        this.hash = this.calculateHash();
+      }
+
+      calculateHash() {
+        return btoa(this.index + this.timestamp + JSON.stringify(this.data) + this.previousHash);
+      }
+    }
+
+    class Blockchain {
+      constructor() {
+        this.chain = [this.createGenesisBlock()];
+      }
+
+      createGenesisBlock() {
+        return new Block(0, "2025-01-01", "Genesis Block", "0");
+      }
+
+      getLatestBlock() {
+        return this.chain[this.chain.length - 1];
+      }
+
+      addBlock(data) {
+        const newBlock = new Block(this.chain.length, new Date().toISOString(), data, this.getLatestBlock().hash);
+        this.chain.push(newBlock);
+      }
+
+      getAllBlocks() {
+        return this.chain;
+      }
+    }
+
+    // 🔧 Create blockchain instance
+    const hospitalBlockchain = new Blockchain();
+
+    // 🩺 Dummy Data
+    const records = [
+      {
+        date: "2025-04-25",
+        visit: "Check-up",
+        doctor: "Dr. Varun Yadav",
+        notes: "All vitals normal."
+      },
+      {
+        date: "2025-04-25",
+        visit: "Follow-up",
+        doctor: "Dr. Prasoon Mishra",
+        notes: "Prescribed medication for allergy."
+      },
+      {
+        date: "2025-05-10",
+        visit: "Surgery",
+        doctor: "Dr. Sneha Gupta",
+        notes: "Appendix removed successfully."
+      }
+    ];
+
+    records.forEach((rec, i) => {
+      hospitalBlockchain.addBlock(rec);
     });
 
-    </script>
-<script src="blockchain.js"></script>
-<script>
-  // Example dummy data to simulate loading from blockchain
-  const records = [
-    {
-      date: "2025-04-25",
-      visit: "Check-up",
-      doctor: "Dr. Varun Yadav",
-      notes: "All vitals normal."
-    },
-    {
-      date: "2025-04-25",
-      visit: "Follow-up",
-      doctor: "Dr. Prasoon Mishra",
-      notes: "Prescribed medication for allergy."
-    }
-  ];
+    const blockchainUI = document.getElementById("blockchain-records");
+    const allBlocks = hospitalBlockchain.getAllBlocks();
 
-  // Assuming blockchain.js has a function addBlock and getBlockchain
-  records.forEach((rec, index) => {
-    addBlock(`Visit ${index + 1}`, rec);
-  });
-
-
-  const blockchainUI = document.getElementById("blockchain-records");
-const allBlocks = getBlockchain();
-
-blockchainUI.innerHTML = `<ul>${
-  allBlocks
-    .slice(1) // ✅ Skip the Genesis Block
-    .map(block => `
-      <li>
-        <strong>${block.data.date} - ${block.data.visit}</strong> with <em>${block.data.doctor}</em><br />
-        Notes: ${block.data.notes}<br />
-        Hash: <code>${block.hash}</code>
-      </li>
-    `).join('')
-}</ul>`;
-</script>
-
+    blockchainUI.innerHTML = `<ul>${
+      allBlocks
+        .slice(1) // Skip genesis block
+        .map(block => `
+          <li>
+            <strong>${block.data.date} - ${block.data.visit}</strong> with <em>${block.data.doctor}</em><br />
+            Notes: ${block.data.notes}<br />
+            Hash: <code>${block.hash}</code>
+          </li>
+        `).join('')
+    }</ul>`;
+  </script>
 </body>
 </html>
