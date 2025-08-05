@@ -195,6 +195,22 @@ table th {
   margin-top: -40px;
   margin-right: 20px;
 }
+<style>
+  #ai-suggestion-box {
+    animation: slideIn 0.5s ease;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+</style>
 
 
 }
