@@ -104,6 +104,16 @@
     .button:hover, #theme-toggle:hover, #lang-toggle:hover {
       background-color: #0056b3;
     }
+
+    .logout-btn {
+      background-color: #dc3545;
+      margin: 20px 10px 0 10px;
+    }
+
+    .logout-btn:hover {
+      background-color: #b52b38;
+    }
+
     @media (max-width: 600px) {
       nav ul li {
         display: block;
@@ -166,6 +176,15 @@
       }
     }
   </style>
+
+  <script>
+    // ✅ Check if user is logged in
+    const role = localStorage.getItem("userRole");
+    if (role !== "patient") {
+      alert("Unauthorized! Please log in as a patient.");
+      window.location.href = "login.html";
+    }
+  </script>
 </head>
 <body>
   <header>
@@ -183,6 +202,8 @@
   </header>
   <main>
     <button id="theme-toggle" class="button">🌙</button>
+    <button onclick="logout()" class="button logout-btn">🚪 Logout</button>
+
     <section>
       <h2 id="welcome">Welcome to the Patient Portal</h2>
       <p>Here you can manage your appointments, view your medical records, and communicate with your healthcare providers.</p>
@@ -233,6 +254,11 @@
         toggleButton.textContent = '🌙';
       }
     });
+
+    function logout() {
+      localStorage.removeItem("userRole");
+      window.location.href = "login.html";
+    }
   </script>
 
   <!-- 🌍 Google Translate -->
