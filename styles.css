@@ -30,6 +30,7 @@
     --section-background: #1e1e1e;
     --section-shadow: rgba(255, 255, 255, 0.05);
 }
+
 /* Global Styles */
 body {
     background-color: var(--background-color);
@@ -49,19 +50,18 @@ header {
     box-shadow: 0 2px 10px var(--section-shadow);
 }
 
-/*title background image */
- header h1 {
-      position: relative;
-      padding: 40px 20px;
-      background: url('https://media.istockphoto.com/id/638377134/photo/doctor-man-with-stethoscope-in-hospital.jpg?s=2048x2048&w=is&k=20&c=wmTKy8oac1j4PfFnJxCO-7TBho4R2lNlWzMm0Rl1gvs=') center/cover no-repeat;
-      background-blend-mode: overlay;
-      background-color: rgba(0, 0, 0, 0.4); /* dark overlay */
-      color: #ffffff;
-      font-size: 2.5rem;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
-
+/* Title background image */
+header h1 {
+    position: relative;
+    padding: 40px 20px;
+    background: url('https://media.istockphoto.com/id/638377134/photo/doctor-man-with-stethoscope-in-hospital.jpg?s=2048x2048&w=is&k=20&c=wmTKy8oac1j4PfFnJxCO-7TBho4R2lNlWzMm0Rl1gvs=') center/cover no-repeat;
+    background-blend-mode: overlay;
+    background-color: rgba(0, 0, 0, 0.4); /* dark overlay */
+    color: #ffffff;
+    font-size: 2.5rem;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
 
 /* Navigation Styles */
 nav ul {
@@ -167,51 +167,71 @@ table th {
     font-weight: bold;
 }
 
+/* ---------------- FIX START ---------------- */
+
+/* Default card for patient portal (wide sections) */
+.card {
+    width: 100%;
+    background: var(--section-background);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px var(--section-shadow);
+    margin: 20px 0;
+}
+
+/* Special card for login/signup (small centered box) */
+.card.auth {
+    max-width: 420px;
+    margin: 40px auto;
+    padding: 30px;
+}
+
+/* ---------------- FIX END ---------------- */
+
 /* Responsive Styles */
 @media (max-width: 600px) {
     nav ul li {
         display: block;
         margin: 10px 0;
     }
-.search-input {
-  background-color: white;
-  color: var(--text-color);
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 6px;
-  font-size: 1rem;
+
+    .search-input {
+        background-color: white;
+        color: var(--text-color);
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 6px;
+        font-size: 1rem;
+    }
+
+    .doctor-card {
+        background-color: #ffffff;
+        padding: 15px;
+        border: 1px solid #ccc;
+        margin: 15px 0;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    #google_translate_element {
+        float: right;
+        margin-top: -40px;
+        margin-right: 20px;
+    }
 }
 
-  .doctor-card {
-    background-color: #ffffff;
-    padding: 15px;
-    border: 1px solid #ccc;
-    margin: 15px 0;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  }
-#google_translate_element {
-  float: right;
-  margin-top: -40px;
-  margin-right: 20px;
-}
-<style>
-  #ai-suggestion-box {
+/* AI Suggestion Animation */
+#ai-suggestion-box {
     animation: slideIn 0.5s ease;
-  }
+}
 
-  @keyframes slideIn {
+@keyframes slideIn {
     from {
-      transform: translateY(30px);
-      opacity: 0;
+        transform: translateY(30px);
+        opacity: 0;
     }
     to {
-      transform: translateY(0);
-      opacity: 1;
+        transform: translateY(0);
+        opacity: 1;
     }
-  }
-</style>
-
-
 }
-

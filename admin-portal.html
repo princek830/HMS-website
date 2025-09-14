@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - HMS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Admin Dashboard</h1>
+    <nav>
+      <a href="admin-dashboard.html">Dashboard</a>
+      <a href="#manage-users">Manage Users</a>
+      <a href="#appointments">Appointments</a>
+      <a href="#settings">Settings</a>
+      <button onclick="logout()">Logout</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="dashboard">
+      <h2>System Overview</h2>
+      <p>Total Patients: <span id="totalPatients">0</span></p>
+      <p>Total Doctors: <span id="totalDoctors">0</span></p>
+      <p>Total Appointments: <span id="totalAppointments">0</span></p>
+    </section>
+
+    <section id="manage-users">
+      <h2>Manage Users</h2>
+      <p>View, add, or remove doctors/patients.</p>
+    </section>
+
+    <section id="appointments">
+      <h2>All Appointments</h2>
+      <p>Monitor all bookings made by patients.</p>
+    </section>
+
+    <section id="settings">
+      <h2>System Settings</h2>
+      <p>Control blogs, FAQ, and other site content here.</p>
+    </section>
+  </main>
+
+  <script>
+    function logout() {
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Hospital Management System</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Link to CSS file -->
+
   <style>
     :root {
       --background-color: #f4f4f4;
@@ -42,10 +44,18 @@
       background-blend-mode: overlay;
       background-color: rgba(0, 0, 0, 0.4);
       color: #ffffff;
-      font-size: 2.5rem;
+      font-size: 2.2rem;
       border-radius: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
     }
+
+    /* show small greeting under the title */
+    #user-greeting {
+      margin-top: -6px;
+      font-size: 1rem;
+      opacity: 0.95;
+    }
+
     nav ul {
       list-style: none;
       padding: 0;
@@ -59,16 +69,18 @@
       color: var(--header-text-color);
       text-decoration: none;
       font-weight: bold;
-      font-size: 1.1rem;
+      font-size: 1.0rem;
       transition: transform 0.3s, color 0.3s;
     }
     nav ul li a:hover {
       color: #ffcc00;
-      transform: scale(1.1);
+      transform: scale(1.05);
       text-decoration: underline;
     }
     main {
       padding: 20px;
+      max-width: 980px;
+      margin: 0 auto;
     }
     section {
       background: var(--section-background);
@@ -78,9 +90,7 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       transition: background 0.5s;
     }
-    h2 {
-      color: var(--header-background);
-    }
+    h2 { color: #333; margin-top: 0; }
     footer {
       text-align: center;
       padding: 15px;
@@ -109,17 +119,12 @@
       background-color: #dc3545;
       margin: 20px 10px 0 10px;
     }
-
-    .logout-btn:hover {
-      background-color: #b52b38;
-    }
+    .logout-btn:hover { background-color: #b52b38; }
 
     @media (max-width: 600px) {
-      nav ul li {
-        display: block;
-        margin: 10px 0;
-      }
+      nav ul li { display: block; margin: 10px 0; text-align:center; }
     }
+
     .ambulance-float {
       position: fixed;
       bottom: 20px;
@@ -137,6 +142,7 @@
       justify-content: center;
       text-decoration: none;
     }
+
     #google_translate_element {
       position: absolute;
       top: 10px;
@@ -158,37 +164,33 @@
       animation: slideIn 0.4s ease-in-out;
       z-index: 998;
     }
+    #ai-suggestion-box .button { margin-top: 10px; background-color: var(--button-background); color: var(--button-text-color); }
+    @keyframes slideIn { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-    #ai-suggestion-box .button {
-      margin-top: 10px;
-      background-color: var(--button-background);
-      color: var(--button-text-color);
-    }
-
-    @keyframes slideIn {
-      from {
-        transform: translateY(30px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
+    /* small responsive tweaks */
+    .meta-row { display:flex; gap:12px; align-items:center; justify-content:flex-end; flex-wrap:wrap; }
+    .welcome-block { display:flex; align-items:center; gap:12px; justify-content:space-between; flex-wrap:wrap; }
   </style>
 
+  <!-- immediate role check: if not logged-in patient -> redirect -->
   <script>
-    // ✅ Check if user is logged in
-    const role = localStorage.getItem("userRole");
-    if (role !== "patient") {
-      alert("Unauthorized! Please log in as a patient.");
-      window.location.href = "login.html";
-    }
+    (function() {
+      const loggedInUser = localStorage.getItem("loggedInUser");
+      const role = localStorage.getItem("userRole");
+      // If not logged in or not a patient, redirect to login
+      if (!loggedInUser || role !== "patient") {
+        // small delay so alert shows before redirect (keeps previous behavior)
+        alert("Unauthorized! Please log in as a patient.");
+        window.location.href = "login.html";
+      }
+      // else continue loading the page
+    })();
   </script>
 </head>
 <body>
   <header>
     <h1 id="main-title"> 🏥 Hospital Management System</h1>
+    <div id="user-greeting" style="color:var(--header-text-color)"></div>
     <div id="google_translate_element"></div>
     <nav>
       <ul>
@@ -197,71 +199,162 @@
         <li><a href="contact.html">Contact Us</a></li>
         <li><a href="patient-portal.html">Patient Portal</a></li>
         <li><a href="about.html">About Us</a></li>
+        
       </ul>
     </nav>
   </header>
+
   <main>
-    <button id="theme-toggle" class="button">🌙</button>
-    <button onclick="logout()" class="button logout-btn">🚪 Logout</button>
+    <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+      <div>
+        <button id="theme-toggle" class="button">🌙</button>
+        <a id="profile-settings" class="button" href="patient-records.html">My Profile</a>
+      </div>
+      <div class="meta-row">
+        <button onclick="logout()" class="button logout-btn">🚪 Logout</button>
+      </div>
+    </div>
 
     <section>
       <h2 id="welcome">Welcome to the Patient Portal</h2>
-      <p>Here you can manage your appointments, view your medical records, and communicate with your healthcare providers.</p>
+      <p id="welcome-text">Here you can manage your appointments, view your medical records, and communicate with your healthcare providers.</p>
     </section>
+
     <section>
       <h2 id="appointments">Manage Your Appointments</h2>
       <p>View, book, or cancel your appointments easily.</p>
       <a id="goToAppointments" href="appointments.html" class="button">Go to Appointments</a>
     </section>
+
     <section>
       <h2 id="records">Access Your Medical Records</h2>
       <p>View your medical history and lab results.</p>
       <a id="viewRecords" href="patient-records.html" class="button">View Records</a>
     </section>
+
     <section>
       <h2 id="feedback-title">Feedback</h2>
       <p>We value your feedback. Please let us know about your experience.</p>
       <a id="submitFeedback" href="feedback.html" class="button">Submit Feedback</a>
     </section>
   </main>
+
   <footer>
     <p>&copy; 2025 Hospital Management System. All rights reserved.</p>
   </footer>
 
-  <!-- 🚑 Ambulance Floating Button -->
-  <a href="tel:108" class="ambulance-float" title="Call Ambulance">🚑</a>
+  <!-- Ambulance Floating Button (only visible when patient logged in) -->
+  <a id="ambulanceBtn" href="tel:108" class="ambulance-float" title="Call Ambulance">🚑</a>
 
-  <!-- 🌗 Theme Toggle Script -->
+  <!-- AI Suggestion Box -->
+  <div id="ai-suggestion-box" role="dialog" aria-label="Health suggestions">
+    <p id="suggestion-text">👨‍⚕️ Hello! How can I assist you today?</p>
+    <a id="bookNow" href="appointments.html" class="button">📅 Book Appointment</a>
+    <br>
+    <button onclick="closeSuggestion()" class="button" style="background-color: gray; margin-top:8px;">Dismiss</button>
+  </div>
+
+  <!-- Theme toggle + Logout + AI logic scripts -->
   <script>
+    // Set username display and show/hide ambulance depending on login
+    (function initPortal() {
+      const loggedInUser = localStorage.getItem("loggedInUser");
+      const role = localStorage.getItem("userRole");
+
+      // If somehow user got here without correct role, redirect (extra safety)
+      if (!loggedInUser || role !== "patient") {
+        // fallback redirect handled in head script; double-safety
+        window.location.href = "login.html";
+        return;
+      }
+
+      // Show username greeting
+      const greetingEl = document.getElementById("user-greeting");
+      greetingEl.innerHTML = `Hello, <strong style="color:var(--header-text-color)">${escapeHtml(loggedInUser)}</strong>`;
+
+      // Show ambulance only for logged-in patient
+      const amb = document.getElementById("ambulanceBtn");
+      if (role === "patient") {
+        amb.style.display = "flex";
+      } else {
+        amb.style.display = "none";
+      }
+
+      // personalize AI suggestion based on last visit saved for this user
+      const lastVisitKey = `lastVisit_${loggedInUser}`;
+      let lastVisitRaw = localStorage.getItem(lastVisitKey);
+      let lastVisitDate = lastVisitRaw ? new Date(lastVisitRaw) : new Date("2025-06-25"); // fallback
+      if (isNaN(lastVisitDate)) lastVisitDate = new Date("2025-06-25");
+
+      const today = new Date();
+      const daysSinceLastVisit = Math.floor((today - lastVisitDate) / (1000 * 60 * 60 * 24));
+
+      let suggestion = "👨‍⚕️ Hello! How can I assist you today?";
+      if (daysSinceLastVisit > 30) {
+        suggestion = `🕒 ${escapeHtml(loggedInUser)}, it’s been over a month since your last checkup. Want to book an appointment?`;
+      } else if (daysSinceLastVisit > 15) {
+        suggestion = `📅 ${escapeHtml(loggedInUser)}, need help finding your last visit records?`;
+      } else {
+        suggestion = `✅ ${escapeHtml(loggedInUser)}, everything seems fine. Let us know if you need help.`;
+      }
+
+      document.getElementById("suggestion-text").innerText = suggestion;
+
+      // show suggestion after short delay
+      setTimeout(() => {
+        document.getElementById("ai-suggestion-box").style.display = "block";
+      }, 1200);
+    })();
+
+    // Theme toggle logic (keeps your existing behavior)
     const toggleButton = document.getElementById('theme-toggle');
     if (localStorage.getItem('theme') === 'night') {
       document.documentElement.setAttribute('data-theme', 'night');
-      toggleButton.textContent = '🌙';
+      if (toggleButton) toggleButton.textContent = '🌙';
     } else {
       document.documentElement.setAttribute('data-theme', 'day');
-      toggleButton.textContent = '☀️';
+      if (toggleButton) toggleButton.textContent = '☀️';
     }
 
-    toggleButton.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      if (currentTheme === 'night') {
-        document.documentElement.setAttribute('data-theme', 'day');
-        localStorage.setItem('theme', 'day');
-        toggleButton.textContent = '☀️';
-      } else {
-        document.documentElement.setAttribute('data-theme', 'night');
-        localStorage.setItem('theme', 'night');
-        toggleButton.textContent = '🌙';
-      }
-    });
+    if (toggleButton) {
+      toggleButton.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        if (currentTheme === 'night') {
+          document.documentElement.setAttribute('data-theme', 'day');
+          localStorage.setItem('theme', 'day');
+          toggleButton.textContent = '☀️';
+        } else {
+          document.documentElement.setAttribute('data-theme', 'night');
+          localStorage.setItem('theme', 'night');
+          toggleButton.textContent = '🌙';
+        }
+      });
+    }
 
     function logout() {
       localStorage.removeItem("userRole");
+      localStorage.removeItem("loggedInUser");
+      alert("You have been logged out.");
       window.location.href = "login.html";
+    }
+
+    function closeSuggestion() {
+      document.getElementById("ai-suggestion-box").style.display = "none";
+    }
+
+    // small helper to avoid injecting raw text
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
     }
   </script>
 
-  <!-- 🌍 Google Translate -->
+  <!-- Google Translate -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
       new google.translate.TranslateElement(
@@ -272,42 +365,5 @@
   </script>
   <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-  <!-- 💬 AI Suggestion Box -->
-  <div id="ai-suggestion-box">
-    <p id="suggestion-text">
-      👨‍⚕️ Hello! How can I assist you today?
-    </p>
-    <a href="appointments.html" class="button">📅 Book Appointment</a>
-    <br>
-    <button onclick="closeSuggestion()" class="button" style="background-color: gray;">Dismiss</button>
-  </div>
-
-  <!-- 💡 AI Suggestion Logic -->
-  <script>
-    const lastVisitDate = new Date("2025-06-25");
-    const today = new Date();
-    const daysSinceLastVisit = Math.floor((today - lastVisitDate) / (1000 * 60 * 60 * 24));
-
-    let suggestion = "👨‍⚕️ Hello! How can I assist you today?";
-
-    if (daysSinceLastVisit > 30) {
-      suggestion = "🕒 It’s been over a month since your last checkup. Want to book an appointment?";
-    } else if (daysSinceLastVisit > 15) {
-      suggestion = "📅 Need help finding your last visit records?";
-    } else {
-      suggestion = "✅ Everything seems fine. Let us know if you need help.";
-    }
-
-    window.onload = function () {
-      document.getElementById("suggestion-text").innerText = suggestion;
-      setTimeout(() => {
-        document.getElementById("ai-suggestion-box").style.display = "block";
-      }, 2000);
-    };
-
-    function closeSuggestion() {
-      document.getElementById("ai-suggestion-box").style.display = "none";
-    }
-  </script>
 </body>
 </html>

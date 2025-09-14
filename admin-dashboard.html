@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - HMS</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    header { background: #107c10; color: white; padding: 15px; }
+    nav a, nav button { margin: 0 10px; color: white; text-decoration: none; }
+    nav button { background: #e81123; border: none; padding: 5px 10px; cursor: pointer; }
+    main { padding: 20px; }
+    section { display: none; } /* hide all sections */
+    section.active { display: block; } /* only active section shows */
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Admin Dashboard</h1>
+    <nav>
+      <a href="#" onclick="showSection('dashboard')">Dashboard</a>
+      <a href="#" onclick="showSection('manage-users')">Manage Users</a>
+      <a href="#" onclick="showSection('appointments')">Appointments</a>
+      <a href="#" onclick="showSection('settings')">Settings</a>
+      <button onclick="logout()">Logout</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="dashboard" class="active">
+      <h2>System Overview</h2>
+      <p>Total Patients: <span id="totalPatients">25</span></p>
+      <p>Total Doctors: <span id="totalDoctors">5</span></p>
+      <p>Total Appointments: <span id="totalAppointments">40</span></p>
+    </section>
+
+    <section id="manage-users">
+      <h2>Manage Users</h2>
+      <ul>
+        <li>Patient A - Active</li>
+        <li>Doctor B - Active</li>
+        <li>Patient C - Suspended</li>
+      </ul>
+    </section>
+
+    <section id="appointments">
+      <h2>All Appointments</h2>
+      <ul>
+        <li>Patient A with Dr. X - 9:00 AM</li>
+        <li>Patient B with Dr. Y - 11:00 AM</li>
+      </ul>
+    </section>
+
+    <section id="settings">
+      <h2>System Settings</h2>
+      <p>🔧 Control blogs, FAQ, and other site content here.</p>
+      <p>🔒 Security Settings</p>
+      <p>🌐 Website Configurations</p>
+    </section>
+  </main>
+
+  <script>
+    function showSection(sectionId) {
+      // Hide all sections
+      document.querySelectorAll("main section").forEach(sec => sec.classList.remove("active"));
+      // Show only selected
+      document.getElementById(sectionId).classList.add("active");
+    }
+
+    function logout() {
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
