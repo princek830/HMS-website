@@ -1,31 +1,48 @@
-document.getElementById("loginForm").addEventListener("submit", function(event) {
-    event.preventDefault();
+document.addEventListener("DOMContentLoaded", () => {
+  const loginForm = document.getElementById("loginForm");
 
-    let username = document.getElementById("username").value.trim();
-    let password = document.getElementById("password").value.trim();
+  loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-    // Get users from localStorage
-    let users = JSON.parse(localStorage.getItem("users")) || [];
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-    // Find matching user
-    let user = users.find(user => user.username === username && user.password === password);
-
-    if (!user) {
-        alert("Invalid username or password!");
-        return;
+    if (!email || !password) {
+      alert("Please enter both email and password.");
+      return;
     }
 
-    // Save current logged in user
+    // Get all users from localStorage
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Find the matching user by email and password
+    const user = users.find(u => u.email === email && u.password === password);
+
+    if (!user) {
+      alert("Invalid email or password. Please try again.");
+      return;
+    }
+
+    // Block doctor login until approved
+    if (user.role === "doctor" && user.status !== "approved") {
+      alert("Doctor account not approved yet. Please wait for admin approval.");
+      return;
+    }
+
+    // Save login session
     localStorage.setItem("loggedInUser", JSON.stringify(user));
 
-    alert(`Welcome ${user.username}!`);
+    alert(`Login successful! Redirecting to ${user.role} portal...`);
 
     // Redirect based on role
     if (user.role === "patient") {
-        window.location.href = "patient-portal.html";
+      window.location.href = "patient-portal.html";
     } else if (user.role === "doctor") {
-        window.location.href = "doctor-dashboard.html";
+      window.location.href = "doctor-portal.html";
     } else if (user.role === "admin") {
-        window.location.href = "admin-dashboard.html";
+      window.location.href = "admin-portal.html";
+    } else {
+      window.location.href = "index.html"; // fallback
     }
+  });
 });

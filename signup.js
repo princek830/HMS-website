@@ -5,29 +5,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Show doctor fields if role is doctor
   roleSelect.addEventListener("change", () => {
-    if (roleSelect.value === "doctor") {
-      doctorFields.style.display = "block";
-    } else {
-      doctorFields.style.display = "none";
-    }
+    doctorFields.style.display = roleSelect.value === "doctor" ? "block" : "none";
   });
 
-  // Handle form submission
   signupForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
     const role = roleSelect.value;
-    const username = document.getElementById("username").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    const username = document.getElementById("username").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    if (!username || !email || !password) {
+      alert("Please fill all required fields!");
+      return;
+    }
+
+    // Get existing users array
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Check if user already exists
+    if (users.some(u => u.email === email)) {
+      alert("User already exists. Please login.");
+      return;
+    }
 
     let userData = { role, username, email, password };
 
-    // Add doctor-specific data
     if (role === "doctor") {
-      const specialization = document.getElementById("specialization").value;
-      const degree = document.getElementById("degree").value;
-      const license = document.getElementById("license").value;
+      const specialization = document.getElementById("specialization").value.trim();
+      const degree = document.getElementById("degree").value.trim();
+      const license = document.getElementById("license").value.trim();
 
       userData = { ...userData, specialization, degree, license, status: "pending" };
       alert("Doctor signup submitted. Waiting for admin approval.");
@@ -35,8 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Patient signup successful!");
     }
 
-    // Save data in localStorage (simulate DB)
-    localStorage.setItem(email, JSON.stringify(userData));
+    // Save the user
+    users.push(userData);
+    localStorage.setItem("users", JSON.stringify(users));
 
     // Redirect to login
     window.location.href = "login.html";

@@ -3,106 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hospital Management System</title>
+  <title>Hospital Management System - Login</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css"> <!-- Link to CSS file -->
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to right, #8e0e00, #1f1c18);
-      min-height: 100vh;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .login-container {
-      background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-      width: 100%;
-      max-width: 420px;
-    }
-
-    .login-container h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #333;
-    }
-
-    label {
-      font-weight: 500;
-      display: block;
-      margin-top: 10px;
-    }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 14px;
-      outline: none;
-    }
-
-    input:focus {
-      border-color: #2193b0;
-      box-shadow: 0 0 5px rgba(33, 147, 176, 0.5);
-    }
-
-    button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 20px;
-      border: none;
-      border-radius: 8px;
-      background: #e63946; /* red */
-      color: #fff;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    button:hover {
-      background: #b71c1c; /* darker red */
-    }
-
-    p {
-      text-align: center;
-      margin-top: 15px;
-    }
-
-    a {
-      color: #e63946; /* red */
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
+    body { font-family: 'Poppins', sans-serif; background: linear-gradient(to right, #8e0e00, #1f1c18); min-height: 100vh; margin: 0; display: flex; justify-content: center; align-items: center; }
+    .login-container { background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.15); width: 100%; max-width: 420px; }
+    h2 { text-align: center; margin-bottom: 20px; color: #333; }
+    label { font-weight: 500; display: block; margin-top: 10px; }
+    input { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; outline: none; }
+    input:focus { border-color: #2193b0; box-shadow: 0 0 5px rgba(33,147,176,0.5); }
+    button { width: 100%; padding: 12px; margin-top: 20px; border: none; border-radius: 8px; background: #e63946; color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.3s ease; }
+    button:hover { background: #b71c1c; }
+    p { text-align: center; margin-top: 15px; }
+    a { color: #e63946; text-decoration: none; font-weight: 600; }
+    a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
   <div class="login-container">
     <h2>Login</h2>
     <form id="loginForm">
-      <label for="username">Username</label>
-      <input id="username" name="username" type="text" required />
+      <label for="email">Email</label>
+      <input id="email" type="email" placeholder="Enter your email" required>
 
       <label for="password">Password</label>
-      <input id="password" name="password" type="password" required />
+      <input id="password" type="password" placeholder="Enter your password" required>
 
       <button type="submit">Login</button>
     </form>
 
-    <p class="note">Don't have an account? <a href="signup.html">Sign up</a></p>
+    <p>Don't have an account? <a href="signup.html">Sign up</a></p>
   </div>
 
-  <script src="login.js"></script>
+  <script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+      const loginForm = document.getElementById("loginForm");
+
+      loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        const users = JSON.parse(localStorage.getItem("users")) || [];
+
+        const user = users.find(u => u.email === email && u.password === password);
+
+        if (!user) {
+          alert("Invalid email or password. Please try again.");
+          return;
+        }
+
+        // Block doctor login until approved
+        if (user.role === "doctor" && user.status !== "approved") {
+          alert("Doctor account not approved yet. Please wait for admin approval.");
+          return;
+        }
+
+        localStorage.setItem("loggedInUser", JSON.stringify(user));
+
+        alert(`Login successful! Redirecting to ${user.role} portal...`);
+
+        if (user.role === "patient") window.location.href = "patient-portal.html";
+        else if (user.role === "doctor") window.location.href = "doctor-portal.html";
+        else if (user.role === "admin") window.location.href = "admin-portal.html";
+        else window.location.href = "index.html";
+      });
+    });
+  </script>
 </body>
 </html>
