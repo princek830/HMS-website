@@ -1,37 +1,31 @@
-// login.js
-document.getElementById("loginForm").addEventListener("submit", function (e) {
-  e.preventDefault();
+document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault();
 
-  const username = document.getElementById("username").value.trim();
-  const password = document.getElementById("password").value.trim();
+    let username = document.getElementById("username").value.trim();
+    let password = document.getElementById("password").value.trim();
 
-  // Fetch saved users from signup
-  const users = JSON.parse(localStorage.getItem("users")) || [];
+    // Get users from localStorage
+    let users = JSON.parse(localStorage.getItem("users")) || [];
 
-  // Find the matching user by username & password
-  const user = users.find(
-    u => u.username === username && u.password === password
-  );
+    // Find matching user
+    let user = users.find(user => user.username === username && user.password === password);
 
-  if (!user) {
-    alert("Invalid username or password. Please try again.");
-    return;
-  }
+    if (!user) {
+        alert("Invalid username or password!");
+        return;
+    }
 
-  // Save login session
-  localStorage.setItem("loggedInUser", user.username);
-  localStorage.setItem("userRole", user.role);
+    // Save current logged in user
+    localStorage.setItem("loggedInUser", JSON.stringify(user));
 
-  alert(`Login successful! Redirecting to ${user.role} portal...`);
+    alert(`Welcome ${user.username}!`);
 
-  // Redirect based on role
-  if (user.role === "patient") {
-    window.location.href = "patient-portal.html";
-  } else if (user.role === "doctor") {
-    window.location.href = "doctor-portal.html";
-  } else if (user.role === "admin") {
-    window.location.href = "admin-portal.html";
-  } else {
-    window.location.href = "index.html"; // fallback
-  }
+    // Redirect based on role
+    if (user.role === "patient") {
+        window.location.href = "patient-portal.html";
+    } else if (user.role === "doctor") {
+        window.location.href = "doctor-dashboard.html";
+    } else if (user.role === "admin") {
+        window.location.href = "admin-dashboard.html";
+    }
 });
