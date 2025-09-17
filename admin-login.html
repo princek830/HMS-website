@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login</title>
+<style>
+  body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f0f0f0; }
+  .login-box { background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.2); width: 300px; }
+  input { width: 100%; padding: 10px; margin-top: 10px; border-radius: 6px; border: 1px solid #ccc; }
+  button { width: 100%; padding: 10px; margin-top: 20px; border: none; border-radius: 6px; background: #e63946; color: #fff; cursor: pointer; }
+  button:hover { background: #b71c1c; }
+</style>
+</head>
+<body>
+
+<div class="login-box">
+  <h2>Admin Login</h2>
+  <form id="adminLoginForm">
+    <label for="adminEmail">Email</label>
+    <input type="email" id="adminEmail" required>
+    
+    <label for="adminPass">Password</label>
+    <input type="password" id="adminPass" required>
+    
+    <button type="submit">Login</button>
+  </form>
+</div>
+
+<script>
+  // Ensure default admin exists
+  (function(){
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    const adminExists = users.some(u => u.role === "admin");
+
+    if(!adminExists){
+      users.push({
+        username: "Super Admin",
+        email: "admin@hms.com",
+        password: "admin123",   // default password
+        role: "admin"
+      });
+      localStorage.setItem("users", JSON.stringify(users));
+      console.log("✅ Default admin created: admin@hms.com / admin123");
+    }
+  })();
+
+  // Handle admin login
+  document.getElementById("adminLoginForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const email = document.getElementById("adminEmail").value.trim();
+    const password = document.getElementById("adminPass").value.trim();
+
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const admin = users.find(u => u.role === "admin" && u.email === email && u.password === password);
+
+    if(!admin){
+      alert("❌ Invalid admin credentials!");
+      return;
+    }
+
+    // Save session
+    localStorage.setItem("loggedInUser", JSON.stringify(admin));
+    localStorage.setItem("userRole", "admin");
+
+    alert("✅ Admin login successful!");
+    window.location.href = "admin-portal.html";
+  });
+</script>
+
+</body>
+</html>

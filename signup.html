@@ -39,6 +39,7 @@
       <label for="password">Password:</label>
       <input type="password" id="password" name="password" required>
 
+      <!-- Doctor-specific fields -->
       <div id="doctorFields">
         <label for="specialization">Specialization:</label>
         <input type="text" id="specialization" name="specialization">
@@ -48,6 +49,15 @@
 
         <label for="license">Medical License Number:</label>
         <input type="text" id="license" name="license">
+
+        <label for="aadhar">Aadhar Card Number:</label>
+        <input type="text" id="aadhar" name="aadhar">
+
+        <label for="mobile">Mobile Number:</label>
+        <input type="tel" id="mobile" name="mobile">
+
+        <label for="photo">Upload Doctor Photo:</label>
+        <input type="file" id="photo" name="photo" accept="image/*">
       </div>
 
       <button type="submit">Sign Up</button>
@@ -56,55 +66,6 @@
     <p>Already have an account? <a href="login.html">Login here</a></p>
   </div>
 
-  <script defer>
-    document.addEventListener("DOMContentLoaded", () => {
-      const roleSelect = document.getElementById("role");
-      const doctorFields = document.getElementById("doctorFields");
-      const signupForm = document.getElementById("signupForm");
-
-      roleSelect.addEventListener("change", () => {
-        doctorFields.style.display = roleSelect.value === "doctor" ? "block" : "none";
-      });
-
-      signupForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        const role = roleSelect.value;
-        const username = document.getElementById("username").value.trim();
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value.trim();
-
-        if (!username || !email || !password) {
-          alert("Please fill all required fields!");
-          return;
-        }
-
-        let userData = { role, username, email, password };
-
-        if (role === "doctor") {
-          const specialization = document.getElementById("specialization").value.trim();
-          const degree = document.getElementById("degree").value.trim();
-          const license = document.getElementById("license").value.trim();
-
-          if (!specialization || !degree || !license) {
-            alert("Please fill all doctor details!");
-            return;
-          }
-
-          userData = { ...userData, specialization, degree, license, status: "pending" };
-          alert("Doctor signup submitted. Waiting for admin approval.");
-        } else {
-          alert("Patient signup successful!");
-        }
-
-        // ✅ Save user in an array under "users"
-        let users = JSON.parse(localStorage.getItem("users")) || [];
-        users.push(userData);
-        localStorage.setItem("users", JSON.stringify(users));
-
-        window.location.href = "login.html";
-      });
-    });
-  </script>
+  <script src="signup.js" defer></script>
 </body>
 </html>

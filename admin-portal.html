@@ -3,50 +3,109 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard - HMS</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Admin Portal - HMS</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f4f4f4; margin:0; padding:0; }
+    header { background:#1f3c88; color:#fff; padding:20px; text-align:center; }
+    main { max-width:900px; margin:20px auto; }
+    section { background:#fff; padding:20px; margin-bottom:20px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
+    button { margin:5px; padding:8px 15px; border:none; border-radius:6px; cursor:pointer; }
+    .approve { background:#28a745; color:#fff; }
+    .reject { background:#dc3545; color:#fff; }
+    .doctor-card { padding:15px; border:1px solid #ddd; border-radius:8px; margin-bottom:15px; background:#fafafa; }
+    .doctor-card img { max-width:120px; border-radius:8px; margin-top:10px; }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Admin Dashboard</h1>
-    <nav>
-      <a href="admin-dashboard.html">Dashboard</a>
-      <a href="#manage-users">Manage Users</a>
-      <a href="#appointments">Appointments</a>
-      <a href="#settings">Settings</a>
-      <button onclick="logout()">Logout</button>
-    </nav>
-  </header>
 
-  <main>
-    <section id="dashboard">
-      <h2>System Overview</h2>
-      <p>Total Patients: <span id="totalPatients">0</span></p>
-      <p>Total Doctors: <span id="totalDoctors">0</span></p>
-      <p>Total Appointments: <span id="totalAppointments">0</span></p>
-    </section>
+<header>
+  <h1>Admin Portal</h1>
+  <button onclick="logout()" style="float:right;background:#dc3545;color:#fff;padding:8px 15px;border:none;border-radius:6px;">Logout</button>
+</header>
 
-    <section id="manage-users">
-      <h2>Manage Users</h2>
-      <p>View, add, or remove doctors/patients.</p>
-    </section>
+<main>
+  <section>
+    <h2>Pending Doctor Approvals</h2>
+    <div id="doctorList"></div>
+  </section>
+</main>
 
-    <section id="appointments">
-      <h2>All Appointments</h2>
-      <p>Monitor all bookings made by patients.</p>
-    </section>
+<script>
+(function(){
+  const loggedInUser = localStorage.getItem("loggedInUser");
+  const role = localStorage.getItem("userRole");
 
-    <section id="settings">
-      <h2>System Settings</h2>
-      <p>Control blogs, FAQ, and other site content here.</p>
-    </section>
-  </main>
+  if(!loggedInUser || role !== "admin"){
+    alert("Unauthorized! Please log in as Admin.");
+    window.location.href = "admin-login.html";
+    return;
+  }
+})();
 
-  <script>
-    function logout() {
-      localStorage.removeItem("loggedInUser");
-      window.location.href = "login.html";
+// Load pending doctors
+function loadPendingDoctors(){
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+  const doctorList = document.getElementById("doctorList");
+  doctorList.innerHTML = "";
+
+  const pendingDoctors = users.filter(u => u.role === "doctor" && u.status === "pending");
+
+  if(pendingDoctors.length === 0){
+    doctorList.innerHTML = "<p>No pending doctor requests.</p>";
+    return;
+  }
+
+  pendingDoctors.forEach((doc) => {
+    const div = document.createElement("div");
+    div.classList.add("doctor-card");
+    div.innerHTML = `
+      <p><strong>${doc.username}</strong> (${doc.email})</p>
+      <p><b>Specialization:</b> ${doc.specialization}</p>
+      <p><b>Degree:</b> ${doc.degree}</p>
+      <p><b>License No:</b> ${doc.license}</p>
+      <p><b>Aadhar No:</b> ${doc.aadhar}</p>
+      <p><b>Mobile:</b> ${doc.mobile}</p>
+      ${doc.photo ? `<p><b>Photo:</b><br><img src="${doc.photo}" alt="Doctor Photo"></p>` : ""}
+      <button class="approve" onclick="approveDoctor('${doc.email}')">Approve</button>
+      <button class="reject" onclick="rejectDoctor('${doc.email}')">Reject</button>
+    `;
+    doctorList.appendChild(div);
+  });
+}
+
+// Approve doctor
+function approveDoctor(email){
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  users = users.map(u => {
+    if(u.email === email && u.role === "doctor"){
+      u.status = "approved";
     }
-  </script>
+    return u;
+  });
+  localStorage.setItem("users", JSON.stringify(users));
+  alert("Doctor approved successfully!");
+  loadPendingDoctors();
+}
+
+// Reject doctor
+function rejectDoctor(email){
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  users = users.filter(u => !(u.email === email && u.role === "doctor"));
+  localStorage.setItem("users", JSON.stringify(users));
+  alert("Doctor rejected and removed.");
+  loadPendingDoctors();
+}
+
+// Logout
+function logout(){
+  localStorage.removeItem("loggedInUser");
+  localStorage.removeItem("userRole");
+  window.location.href = "admin-login.html";
+}
+
+// Load doctors on page load
+document.addEventListener("DOMContentLoaded", loadPendingDoctors);
+</script>
+
 </body>
 </html>

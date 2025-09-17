@@ -1,122 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Doctor Portal - HMS</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-    header { background: #0078d4; color: white; padding: 15px; }
-    nav a, nav button { margin: 0 10px; color: white; text-decoration: none; }
-    nav button { background: #e81123; border: none; padding: 5px 10px; cursor: pointer; }
-    main { padding: 20px; }
-    section { display: none; }
-    section.active { display: block; }
-    label { display: block; margin-top: 10px; }
-    input { width: 100%; padding: 5px; margin-top: 4px; }
-    button.save { margin-top: 12px; background: #0078d4; color: white; border: none; padding: 8px 12px; cursor: pointer; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doctor Portal - Hospital Management System</title>
+<style>
+  body { font-family: sans-serif; margin:0; padding:0; background:#f4f4f4; }
+  header { background:#1f3c88; color:#fff; padding:20px; text-align:center; }
+  header h1 { margin:0; font-size:1.8rem; }
+  .logout-btn { background:#dc3545; color:#fff; border:none; padding:10px 20px; border-radius:6px; cursor:pointer; float:right; margin-top:-40px; }
+  main { max-width:900px; margin:20px auto; }
+  section { background:#fff; padding:20px; border-radius:8px; margin-bottom:20px; box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+  h2 { margin-top:0; }
+  .button { display:inline-block; padding:10px 20px; margin:5px; background:#007bff; color:#fff; border:none; border-radius:6px; cursor:pointer; text-decoration:none; }
+  .button:hover { background:#0056b3; }
+</style>
 </head>
 <body>
-  <header>
-    <h1>Doctor Portal</h1>
-    <nav>
-      <a href="#" onclick="showSection('dashboard')">Dashboard</a>
-      <a href="#" onclick="showSection('profile')">My Profile</a>
-      <a href="#" onclick="showSection('appointments')">Appointments</a>
-      <button onclick="logout()">Logout</button>
-    </nav>
-  </header>
 
-  <main>
-    <!-- Dashboard -->
-    <section id="dashboard" class="active">
-      <h2>Welcome, <span id="doctorName"></span> 👨‍⚕️</h2>
-      <p>Here is your dashboard overview.</p>
-    </section>
+<header>
+  <h1>Doctor Portal</h1>
+  <button class="logout-btn" onclick="logout()">Logout</button>
+  <div id="welcomeMsg" style="margin-top:10px;"></div>
+</header>
 
-    <!-- Profile (editable) -->
-    <section id="profile">
-      <h2>My Profile</h2>
-      <form id="profileForm">
-        <label>Name:</label>
-        <input type="text" id="profileName">
+<main>
+  <section>
+    <h2>Manage Appointments</h2>
+    <p>View and manage your appointments with patients.</p>
+    <a href="doctor-appointments.html" class="button">Go to Appointments</a>
+  </section>
 
-        <label>Degree:</label>
-        <input type="text" id="profileDegree">
+  <section>
+    <h2>My Profile</h2>
+    <p>View and update your profile information.</p>
+    <a href="doctor-profile.html" class="button">View Profile</a>
+  </section>
+</main>
 
-        <label>Specialization:</label>
-        <input type="text" id="profileSpecialization">
+<script>
+  // Doctor login check
+  (function() {
+  const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser")); // full object
 
-        <label>Experience (years):</label>
-        <input type="number" id="profileExperience">
+  if(!loggedInUser || loggedInUser.role !== "doctor"){
+    alert("Unauthorized! Please log in as an approved doctor.");
+    window.location.href = "login.html";
+    return;
+  }
 
-        <button type="submit" class="save">Save Profile</button>
-      </form>
-    </section>
+  if(loggedInUser.status !== "approved"){
+    alert("Your account is not approved. Please contact admin.");
+    window.location.href = "login.html";
+    return;
+  }
 
-    <!-- Appointments -->
-    <section id="appointments">
-      <h2>Appointments</h2>
-      <ul id="appointmentsList">
-        <li>Patient A - 9:00 AM</li>
-        <li>Patient B - 11:00 AM</li>
-      </ul>
-    </section>
-  </main>
+  document.getElementById("welcomeMsg").innerText = `Welcome, Dr. ${loggedInUser.username}!`;
+})();
 
-  <script>
-    // Check if doctor is logged in
-    const loggedInUser = localStorage.getItem("loggedInUser");
-    const role = localStorage.getItem("userRole");
-    let users = JSON.parse(localStorage.getItem("users")) || [];
+  // Logout
+function logout(){
+  localStorage.removeItem("loggedInUser");
+  alert("You have been logged out.");
+  window.location.href = "login.html";
+}
 
-    if (!loggedInUser || role !== "doctor") {
-      alert("Unauthorized! Please log in as a doctor.");
-      window.location.href = "login.html";
-    }
+</script>
 
-    // Get doctor data
-    let doctor = users.find(u => u.username === loggedInUser && u.role === "doctor");
-
-    // Fill dashboard
-    document.getElementById("doctorName").innerText = doctor.username;
-
-    // Fill profile form
-    document.getElementById("profileName").value = doctor.username;
-    document.getElementById("profileDegree").value = doctor.degree || "";
-    document.getElementById("profileSpecialization").value = doctor.specialization || "";
-    document.getElementById("profileExperience").value = doctor.experience || "";
-
-    // Save profile updates
-    document.getElementById("profileForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      doctor.username = document.getElementById("profileName").value;
-      doctor.degree = document.getElementById("profileDegree").value;
-      doctor.specialization = document.getElementById("profileSpecialization").value;
-      doctor.experience = document.getElementById("profileExperience").value;
-
-      // Update localStorage
-      localStorage.setItem("users", JSON.stringify(users));
-      localStorage.setItem("loggedInUser", doctor.username);
-
-      alert("Profile updated successfully!");
-      document.getElementById("doctorName").innerText = doctor.username;
-    });
-
-    // Navigation
-    function showSection(id) {
-      document.querySelectorAll("main section").forEach(sec => sec.classList.remove("active"));
-      document.getElementById(id).classList.add("active");
-    }
-
-    function logout() {
-      localStorage.removeItem("loggedInUser");
-      localStorage.removeItem("userRole");
-      window.location.href = "login.html";
-    }
-  </script>
 </body>
 </html>

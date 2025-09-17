@@ -1,48 +1,37 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const loginForm = document.getElementById("loginForm");
+document.getElementById("loginForm").addEventListener("submit", function (e) {
+  e.preventDefault();
 
-  loginForm.addEventListener("submit", (e) => {
-    e.preventDefault();
+  const email = document.getElementById("username").value.trim(); // here use email input
+  const password = document.getElementById("password").value.trim();
 
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
+  const users = JSON.parse(localStorage.getItem("users")) || [];
 
-    if (!email || !password) {
-      alert("Please enter both email and password.");
-      return;
-    }
+  // Find user by email + password
+  const user = users.find(u => u.email === email && u.password === password);
 
-    // Get all users from localStorage
-    const users = JSON.parse(localStorage.getItem("users")) || [];
+  if (!user) {
+    alert("Invalid email or password.");
+    return;
+  }
 
-    // Find the matching user by email and password
-    const user = users.find(u => u.email === email && u.password === password);
+  // If doctor and not approved yet
+  if (user.role === "doctor" && user.status !== "approved") {
+    alert("Your account is still pending admin approval.");
+    return;
+  }
 
-    if (!user) {
-      alert("Invalid email or password. Please try again.");
-      return;
-    }
+  // Save the whole user object for session
+localStorage.setItem("loggedInUser", JSON.stringify(user));
 
-    // Block doctor login until approved
-    if (user.role === "doctor" && user.status !== "approved") {
-      alert("Doctor account not approved yet. Please wait for admin approval.");
-      return;
-    }
+  alert(`Login successful! Redirecting to ${user.role} portal...`);
 
-    // Save login session
-    localStorage.setItem("loggedInUser", JSON.stringify(user));
-
-    alert(`Login successful! Redirecting to ${user.role} portal...`);
-
-    // Redirect based on role
-    if (user.role === "patient") {
-      window.location.href = "patient-portal.html";
-    } else if (user.role === "doctor") {
-      window.location.href = "doctor-portal.html";
-    } else if (user.role === "admin") {
-      window.location.href = "admin-portal.html";
-    } else {
-      window.location.href = "index.html"; // fallback
-    }
-  });
+  if (user.role === "patient") {
+    window.location.href = "patient-portal.html";
+  } else if (user.role === "doctor") {
+    window.location.href = "doctor-portal.html";
+  } else if (user.role === "admin") {
+    window.location.href = "admin-portal.html";
+  } else {
+    window.location.href = "index.html";
+  }
 });
