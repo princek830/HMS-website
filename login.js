@@ -1,3 +1,23 @@
+// ✅ Ensure default admin account exists
+(function () {
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  // Check if admin already exists
+  const adminExists = users.some(u => u.role === "admin");
+
+  if (!adminExists) {
+    users.push({
+      role: "admin",
+      username: "Admin",
+      email: "admin@hms.com",
+      password: "admin123"
+    });
+    localStorage.setItem("users", JSON.stringify(users));
+    console.log("✅ Default admin created: admin@hms.com / admin123");
+  }
+})();
+
+// ✅ Handle login form
 document.getElementById("loginForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -21,7 +41,8 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
   }
 
   // Save the whole user object for session
-localStorage.setItem("loggedInUser", JSON.stringify(user));
+  localStorage.setItem("loggedInUser", JSON.stringify(user));
+  localStorage.setItem("userRole", user.role);
 
   alert(`Login successful! Redirecting to ${user.role} portal...`);
 
