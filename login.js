@@ -1,8 +1,7 @@
-// ✅ Ensure default admin exists before anything else
 document.addEventListener("DOMContentLoaded", () => {
   let users = JSON.parse(localStorage.getItem("users")) || [];
 
-  // Check if admin exists
+  // Add default admin if missing
   if (!users.some(u => u.role === "admin")) {
     users.push({
       role: "admin",
@@ -14,32 +13,29 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("✅ Default admin added (admin@hms.com / admin123)");
   }
 
-  // ✅ Handle login form
   const loginForm = document.getElementById("loginForm");
   if (loginForm) {
     loginForm.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const email = document.getElementById("username").value.trim();
+      // ✅ FIX: match IDs from login.html
+      const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value.trim();
 
       const users = JSON.parse(localStorage.getItem("users")) || [];
 
-      // Find user
       const user = users.find(u => u.email === email && u.password === password);
 
       if (!user) {
-        alert("Invalid email or password.");
+        alert("Invalid email or password. Please try again.");
         return;
       }
 
-      // Doctor must be approved
       if (user.role === "doctor" && user.status !== "approved") {
         alert("Your account is still pending admin approval.");
         return;
       }
 
-      // Save session
       localStorage.setItem("loggedInUser", JSON.stringify(user));
       localStorage.setItem("userRole", user.role);
 
