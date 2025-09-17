@@ -37,6 +37,19 @@
 
   <script defer>
     document.addEventListener("DOMContentLoaded", () => {
+      // ✅ Ensure default admin exists
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+      if (!users.some(u => u.role === "admin")) {
+        users.push({
+          role: "admin",
+          email: "admin@hms.com",
+          password: "admin123",
+          username: "Admin"
+        });
+        localStorage.setItem("users", JSON.stringify(users));
+        console.log("✅ Default admin added (admin@hms.com / admin123)");
+      }
+
       const loginForm = document.getElementById("loginForm");
 
       loginForm.addEventListener("submit", (e) => {
@@ -46,7 +59,6 @@
         const password = document.getElementById("password").value.trim();
 
         const users = JSON.parse(localStorage.getItem("users")) || [];
-
         const user = users.find(u => u.email === email && u.password === password);
 
         if (!user) {
