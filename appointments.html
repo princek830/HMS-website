@@ -152,7 +152,7 @@
       align-items: center;
       justify-content: center;
       text-decoration: none;
-
+    }
     </style>
 </head>
 <body>
@@ -247,6 +247,7 @@ toggleButton.addEventListener('click', () => {
 
 
 // Appointment Booking
+
 document.getElementById("appointmentForm").addEventListener("submit", async function(e){
     e.preventDefault();
 
@@ -256,7 +257,7 @@ document.getElementById("appointmentForm").addEventListener("submit", async func
     const doctor = document.getElementById("doctor").value;
 
     try {
-        const res = await fetch("http://localhost:5000/api/appointments/book", {
+        const res = await fetch("https://hms-backend-hfaw.onrender.com/api/appointments/book", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
