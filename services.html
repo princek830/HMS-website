@@ -8,7 +8,7 @@
     :root {
       --background-color: #f4f4f4;
       --text-color: #333;
-      --header-background: linear-gradient(to right, #8e0e00, #1f1c18);
+      --header-background: linear-gradient(to right, #0A84FF, #00C897);
       --header-text-color: #ffffff;
       --button-background: #007bff;
       --button-text-color: #ffffff;
@@ -33,51 +33,60 @@
     }
 
     header {
-      background: var(--header-background);
-      color: var(--header-text-color);
-      padding: 20px;
-      text-align: center;
-    }
+  position: relative; /* important for positioning elements */
+  background: var(--header-background);
+  color: var(--header-text-color);
+  padding: 20px;
+  text-align: center;
+}
 
-    header h1 {
-      position: relative;
-      padding: 40px 20px;
-      background: url('https://media.istockphoto.com/id/638377134/photo/doctor-man-with-stethoscope-in-hospital.jpg?s=2048x2048&w=is&k=20&c=wmTKy8oac1j4PfFnJxCO-7TBho4R2lNlWzMm0Rl1gvs=') center/cover no-repeat;
-      background-blend-mode: overlay;
-      background-color: rgba(0, 0, 0, 0.4);
+header h1 {
+      padding: 30px 20px;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+      url('https://media.istockphoto.com/id/638377134/photo/doctor-man-with-stethoscope-in-hospital.jpg?s=2048x2048&w=is&k=20&c=wmTKy8oac1j4PfFnJxCO-7TBho4R2lNlWzMm0Rl1gvs=') center/cover no-repeat;
+     
       color: #ffffff;
-      font-size: 2.5rem;
+      font-weight: 600;
+      font-size: 2.3rem;
       border-radius: 10px;
       margin-bottom: 20px;
-    }
+}
 
-    nav ul {
-      list-style: none;
-      padding: 0;
-      margin: 10px 0 0;
-    }
+    nav {
+  position: sticky;
+  top: 0;
+  background: rgba(0,0,0,0.85);
+  padding: 10px 0;
+  width: 100%;
+}
 
-    nav ul li {
-      display: inline-block;
-      margin: 0 15px;
-    }
+nav ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+  max-width: 1100px;
+  margin: auto;
+}
 
-    nav ul li a {
-      color: var(--header-text-color);
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1.1rem;
-      transition: transform 0.3s, color 0.3s;
-    }
+nav ul li {
+  display: inline-block;
+  margin: 0 15px;
+}
 
-    nav ul li a:hover {
-      color: #ffcc00;
-      transform: scale(1.1);
-      text-decoration: underline;
-    }
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #ffcc00;
+}
 
     main {
       padding: 20px;
+       max-width: 1100px;
+       margin: auto;
     }
 
     section {
@@ -100,22 +109,26 @@
       font-size: 0.9rem;
     }
 
-    .button, #theme-toggle, #lang-toggle {
-      display: inline-block;
-      padding: 10px 20px;
-      margin: 10px;
-      background-color: var(--button-background);
-      color: var(--button-text-color);
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background-color 0.3s;
-    }
+   .button, #theme-toggle, #lang-toggle {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: var(--button-background);
+  color: var(--button-text-color);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
 
-    .button:hover, #theme-toggle:hover, #lang-toggle:hover {
-      background-color: #0056b3;
-    }
+.button:hover, #theme-toggle:hover, #lang-toggle:hover {
+  background-color: #0056b3;
+  transform: translateY(-3px);
+}
+
 
     #controls {
       display: flex;
@@ -135,84 +148,121 @@
       }
     }
 
-    .ambulance-float {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: red;
-      color: white;
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      font-size: 2.5rem;
-      z-index: 999;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-    }
+    /* ===== SEARCH BOX MODERN UI ===== */
+.search-box {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-    }
+.search-box form {
+  display: flex;
+  width: 60%;
+  max-width: 600px;
+}
 
-    table, th, td {
-      border: 1px solid #ccc;
-    }
+.search-box input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 25px 0 0 25px;
+  border: 1px solid #ccc;
+}
 
-    th, td {
-      padding: 10px;
-      text-align: center;
-    }
+.search-box button {
+  padding: 12px 20px;
+  border-radius: 0 25px 25px 0;
+  border: none;
+  background: #0A84FF;
+  color: white;
+  cursor: pointer;
+}
 
-    th {
-      background-color: var(--header-background);
-      color: var(--header-text-color);
-    }
+/* ===== DOCTOR CARD UPGRADE ===== */
+.doctor-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 15px 0;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.doctor-card:hover {
+  transform: translateY(-8px);
+}
+
+/* ===== RESULT GRID ===== */
+#result {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
 #google_translate_element {
       position: absolute;
       top: 10px;
       right: 10px;
     }
+.hero {
+  height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+              url("https://images.pexels.com/photos/8460157/pexels-photo-8460157.jpeg");
+  background-size: cover;
+  background-position: center;
+  color: white;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  
+}
+#controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
 
   </style>
 </head>
 
 <body>
-
   <header>
+  <div class="header-inner">
     <h1 id="main-title"> 🏥 Hospital Management System</h1>
     <div id="google_translate_element"></div>
     <nav>
       <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="services.html">Services</a></li>
+                <li><a href="services.html" class="active">Services</a></li>
                 <li><a href="contact.html">Contact Us</a></li>
                 <li><a href="patient-portal.html">Patient Portal</a></li>
                 <li><a href="about.html">About Us</a></li>      
     </ul>
     </nav>
+    <button id="theme-toggle" class="button">🌙</button>
+  </div>
   </header>
 
-  <div class="hero-banner">
-    <img src="https://images.unsplash.com/photo-1576765607924-94d998cf01f3?crop=entropy&cs=tinysrgb&fit=crop&h=400&w=1200" alt="Hospital Banner">
+  <section class="hero">
+  <div class="hero-content">
+    <h1>Find the Right Doctor</h1>
+    <p>Search by doctor name, specialty, or hospital</p>
   </div>
+</section>
 
   <main>
-    <div style="text-align:center;">
-      <button id="theme-toggle" class="button">🌙 Theme</button>
-    </div>
 
  <!-- Search Form -->
-  <div class="search-bar">
-    <form action="services.html" method="GET">
-      <input type="text" name="query" placeholder="Search doctor or specialty..." required>
-      <button type="submit">Search</button>
-    </form>
-  </div>
+  <div class="search-box">
+  <form action="services.html" method="GET">
+    <input type="text" name="query" placeholder="🔍 Search doctors, specialties..." required>
+    <button type="submit">Search</button>
+  </form>
+</div>
 
   <div id="result">
     <!-- Doctor results will be shown here -->
@@ -264,36 +314,11 @@
 </script>
 
   <footer>
-    <p>&copy; 2025 Hospital Management System. All rights reserved.</p>
+    <p>&copy; 2026 Hospital Management System. All rights reserved.</p>
   </footer>
 
 
-<script>
-// Theme toggle
-const toggleButton = document.getElementById('theme-toggle');
 
-if (localStorage.getItem('theme') === 'night') {
-    document.documentElement.setAttribute('data-theme', 'night');
-    toggleButton.textContent = '☀️';
-} else {
-    document.documentElement.setAttribute('data-theme', 'day');
-    toggleButton.textContent = '🌙';
-}
-
-toggleButton.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    if (currentTheme === 'night') {
-        document.documentElement.setAttribute('data-theme', 'day');
-        localStorage.setItem('theme', 'day');
-        toggleButton.textContent = '🌙';
-    } else {
-        document.documentElement.setAttribute('data-theme', 'night');
-        localStorage.setItem('theme', 'night');
-        toggleButton.textContent = '☀️';
-    }
-});
-
-</script>
 <!-- ✅ Google Translate Script -->
 <script type="text/javascript">
   function googleTranslateElementInit() {

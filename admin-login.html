@@ -26,48 +26,49 @@
     <button type="submit">Login</button>
   </form>
 </div>
-
 <script>
-  // Ensure default admin exists
-  (function(){
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-    const adminExists = users.some(u => u.role === "admin");
-
-    if(!adminExists){
-      users.push({
-        username: "Super Admin",
-        email: "admin@hms.com",
-        password: "admin123",   // default password
-        role: "admin"
-      });
-      localStorage.setItem("users", JSON.stringify(users));
-      console.log("✅ Default admin created: admin@hms.com / admin123");
-    }
-  })();
-
-  // Handle admin login
-  document.getElementById("adminLoginForm").addEventListener("submit", function(e) {
+document.getElementById("adminLoginForm").addEventListener("submit", async function(e){
     e.preventDefault();
 
-    const email = document.getElementById("adminEmail").value.trim();
-    const password = document.getElementById("adminPass").value.trim();
+    const email = document.getElementById("adminEmail").value;
+    const password = document.getElementById("adminPass").value;
 
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const admin = users.find(u => u.role === "admin" && u.email === email && u.password === password);
+    try{
+        const res = await fetch("http://localhost:5000/api/auth/login",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify({
+                email,
+                password
+            })
+        });
 
-    if(!admin){
-      alert("❌ Invalid admin credentials!");
-      return;
+        const data = await res.json();
+
+        if(!data.ok){
+            alert(data.message || "Invalid credentials");
+            return;
+        }
+
+        if(data.user.role !== "admin"){
+            alert("Access denied. Admin only.");
+            return;
+        }
+
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("role", data.user.role);
+        localStorage.setItem("loggedInUser", JSON.stringify(data.user));
+
+        alert("Admin login successful!");
+        window.location.href="admin-portal.html";
+
+    }catch(err){
+        console.error(err);
+        alert("Server error");
     }
-
-    // Save session
-    localStorage.setItem("loggedInUser", JSON.stringify(admin));
-    localStorage.setItem("userRole", "admin");
-
-    alert("✅ Admin login successful!");
-    window.location.href = "admin-portal.html";
-  });
+});
 </script>
-
 </body>
 </html>

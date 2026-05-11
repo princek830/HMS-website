@@ -1,237 +1,327 @@
-/* styles.css */
-
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@400;700&display=swap');
-
-/* CSS Variables for Light Mode */
-:root {
-    --background-color: #f9f9f9;
-    --text-color: #2c3e50;
-    --header-background: linear-gradient(to right, #ff4e50, #f9d423); /* Red gradient */
-    --header-text-color: #ffffff;
-    --button-background: #3498db;
-    --button-text-color: #ffffff;
-    --link-color: #2980b9;
-    --link-hover-color: #1abc9c;
-    --section-background: #ffffff;
-    --section-shadow: rgba(0, 0, 0, 0.05);
-}
-
-/* CSS Variables for Dark Mode */
-[data-theme='night'] {
-    --background-color: #121212;
-    --text-color: #e0e0e0;
-    --header-background: linear-gradient(to right, #1A1A2E, #1f1c18); /* Soft Dark Purple */
-    --header-text-color: #ffffff;
-    --button-background: #1abc9c;
-    --button-text-color: #ffffff;
-    --link-color: #1abc9c;
-    --link-hover-color: #16a085;
-    --section-background: #1e1e1e;
-    --section-shadow: rgba(255, 255, 255, 0.05);
-}
-
-/* Global Styles */
+/* -------- GLOBAL -------- */
 body {
-    background-color: var(--background-color);
-    color: var(--text-color);
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background: #f4f6f9;
+  color: #333;
+  line-height: 1.6;
 }
 
-/* Header Styles */
+/* -------- HEADER -------- */
 header {
-    background: var(--header-background);
-    color: var(--header-text-color);
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 2px 10px var(--section-shadow);
+  --header-background: linear-gradient(to right, #0A84FF, #00C897);
+  color: white;
+  padding: 20px;
+  text-align: center;
 }
 
-/* Title background image */
-header h1 {
-    position: relative;
-    padding: 40px 20px;
-    background: url('https://media.istockphoto.com/id/638377134/photo/doctor-man-with-stethoscope-in-hospital.jpg?s=2048x2048&w=is&k=20&c=wmTKy8oac1j4PfFnJxCO-7TBho4R2lNlWzMm0Rl1gvs=') center/cover no-repeat;
-    background-blend-mode: overlay;
-    background-color: rgba(0, 0, 0, 0.4); /* dark overlay */
-    color: #ffffff;
-    font-size: 2.5rem;
-    border-radius: 10px;
-    margin-bottom: 20px;
+nav {
+  position: sticky;
+  top: 0;
+  background: rgba(0,0,0,0.8);
 }
 
-/* Navigation Styles */
 nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 nav ul li {
-    display: inline-block;
-    margin: 0 15px;
+  display: inline-block;
+  margin: 0 15px;
 }
 
-nav ul li a {
-    color: var(--header-text-color);
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s, transform 0.3s;
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
 }
 
-nav ul li a:hover {
-    color: var(--link-hover-color);
-    transform: scale(1.1);
+/* -------- HERO -------- */
+.hero {
+  height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+              url("https://images.pexels.com/photos/6129686/pexels-photo-6129686.jpeg");
+  background-size: cover;
+  background-position: center;
+  color: white;
 }
 
-/* Main Content Styles */
-main {
-    padding: 20px;
+.hero h1 {
+  font-size: 3rem;
 }
 
-/* Section Styles */
+.hero p {
+  font-size: 1.2rem;
+}
+
+/* -------- BUTTONS -------- */
+.btn, .button {
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  margin: 5px;
+  display: inline-block;
+  background: #0A84FF;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.secondary {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+}
+
+.btn:hover, .button:hover {
+  transform: translateY(-3px);
+}
+
+/* -------- CARDS -------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.cards .card {
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+/* Special auth card */
+.card.auth {
+  max-width: 420px;
+  margin: 40px auto;
+}
+
+/* -------- STATS -------- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.stats div {
+  background: white;
+  color: #0A84FF;
+  padding: 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.stats div:hover {
+  transform: translateY(-10px);
+}
+
+/* -------- SECTIONS -------- */
 section {
-    background: var(--section-background);
-    margin: 20px 0;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px var(--section-shadow);
+  margin: 40px 0;
+  padding: 30px;
+  background: white;
+  border-radius: 10px;
 }
 
-/* Heading Styles */
-h1, h2, h3 {
-    font-family: 'Montserrat', sans-serif;
-    color: var(--text-color);
-    margin-top: 0;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+/* -------- MISSION -------- */
+.mission-container {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
 }
 
-h1 {
-    font-size: 2.5em;
+/* -------- NEWS -------- */
+.news-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
 }
 
-h2 {
-    font-size: 2em;
+.news-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-h3 {
-    font-size: 1.5em;
+.news-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
 }
 
-/* Paragraph Styles */
-p {
-    margin-bottom: 15px;
+.news-content {
+  padding: 15px;
 }
 
-/* Button Styles */
-.button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: var(--button-background);
-    color: var(--button-text-color);
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+/* -------- SERVICES PAGE (KEEPED) -------- */
+.search-input {
+  background-color: white;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 1rem;
 }
 
-.button:hover {
-    background-color: var(--link-hover-color);
+.doctor-card {
+  background-color: #ffffff;
+  padding: 15px;
+  border: 1px solid #ccc;
+  margin: 15px 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* Footer Styles */
-footer {
-    text-align: center;
-    padding: 15px;
-    background: var(--header-background);
-    color: var(--header-text-color);
-}
-
-/* Table Styles */
+/* -------- TABLE -------- */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
 
 table th, table td {
-    border: 1px solid #ddd;
-    text-align: left;
-    padding: 8px;
+  border: 1px solid #ddd;
+  padding: 8px;
 }
 
 table th {
-    background-color: #f2f2f2;
-    font-weight: bold;
+  background: #f2f2f2;
 }
 
-/* ---------------- FIX START ---------------- */
-
-/* Default card for patient portal (wide sections) */
-.card {
-    width: 100%;
-    background: var(--section-background);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px var(--section-shadow);
-    margin: 20px 0;
-}
-
-/* Special card for login/signup (small centered box) */
-.card.auth {
-    max-width: 420px;
-    margin: 40px auto;
-    padding: 30px;
-}
-
-/* ---------------- FIX END ---------------- */
-
-/* Responsive Styles */
-@media (max-width: 600px) {
-    nav ul li {
-        display: block;
-        margin: 10px 0;
-    }
-
-    .search-input {
-        background-color: white;
-        color: var(--text-color);
-        border: 1px solid #ccc;
-        padding: 10px;
-        border-radius: 6px;
-        font-size: 1rem;
-    }
-
-    .doctor-card {
-        background-color: #ffffff;
-        padding: 15px;
-        border: 1px solid #ccc;
-        margin: 15px 0;
-        border-radius: 10px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-
-    #google_translate_element {
-        float: right;
-        margin-top: -40px;
-        margin-right: 20px;
-    }
-}
-
-/* AI Suggestion Animation */
+/* -------- AI ANIMATION -------- */
 #ai-suggestion-box {
-    animation: slideIn 0.5s ease;
+  animation: slideIn 0.5s ease;
 }
 
 @keyframes slideIn {
-    from {
-        transform: translateY(30px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
+
+/* -------- FOOTER -------- */
+footer {
+  text-align: center;
+  padding: 15px;
+  background: #0A84FF;
+  color: white;
+}
+
+/* -------- RESPONSIVE -------- */
+@media (max-width: 600px) {
+  nav ul li {
+    display: block;
+    margin: 10px 0;
+  }
+}
+
+/* -------- HERO -------- */
+.hero {
+  height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+             url("https://images.pexels.com/photos/6129686/pexels-photo-6129686.jpeg");
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+.hero h1 {
+  font-size: 3rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+}
+
+/* -------- SEARCH -------- */
+.search-box {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.search-box form {
+  display: flex;
+  width: 60%;
+  max-width: 600px;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 14px;
+  border-radius: 30px 0 0 30px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.search-box button {
+  padding: 14px 25px;
+  border-radius: 0 30px 30px 0;
+  border: none;
+  background: #0A84FF;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.search-box button:hover {
+  background: #006edc;
+}
+
+/* -------- DOCTOR CARDS -------- */
+#result {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.doctor-card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.doctor-card:hover {
+  transform: translateY(-10px);
+}
+
+.doctor-card h3 {
+  color: #0A84FF;
+}
+nav a.active {
+  color: #ffcc00;
+  border-bottom: 2px solid #ffcc00;
+}
+

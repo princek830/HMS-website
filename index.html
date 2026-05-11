@@ -40,7 +40,7 @@
       position: relative;
     }
     header h1 {
-      padding: 40px 20px;
+      padding: 30px 20px;
       background: url('https://media.istockphoto.com/id/638377134/photo/doctor-man-with-stethoscope-in-hospital.jpg?s=2048x2048&w=is&k=20&c=wmTKy8oac1j4PfFnJxCO-7TBho4R2lNlWzMm0Rl1gvs=') center/cover no-repeat;
       background-blend-mode: overlay;
       background-color: rgba(0, 0, 0, 0.4);
@@ -138,7 +138,7 @@
   <div id="google_translate_element"></div> <!--google tranlation-->
   <nav>
     <ul>
-      <li><a href="index.html">Home</a></li>
+     <li><a href="index.html" class="active">Home</a></li>
       <li><a href="services.html">Services</a></li>
       <li><a href="contact.html">Contact Us</a></li>
       <li><a href="patient-portal.html">Patient Portal</a></li>
@@ -151,94 +151,134 @@
 <main>
 
 <!-- Hero Section -->
-<section class="hero-banner">
-  <img src="https://images.unsplash.com/photo-1576765607924-b68266e4e854?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Hospital Building" class="section-image">
-  <h2 id="welcome-heading">Welcome to Our Hospital</h2>
-  <p id="welcome-para">Your health is our top priority.</p>
-</section>
+<section class="hero">
+  <div class="hero-content">
+    <h1>Smart Healthcare Starts Here</h1>
+    <p>Book appointments, manage records, and access emergency services instantly.</p>
 
+    <div class="hero-buttons">
+      <a href="patient-portal.html" class="btn primary">Book Appointment</a>
+      <a href="services.html" class="btn secondary">Our Services</a>
+    </div>
+  </div>
+</section>
+<section class="stats">
+  <div>👨‍⚕️ 500+ Doctors</div>
+  <div>👩‍🦰 10,000+ Patients</div>
+  <div>🚑 24/7 Emergency</div>
+  <div>🩸 1000+ Donors</div>
+</section>
 <!-- Features -->
 <section>
-  <h2 id="features-heading">🏥 Our Features</h2>
-  <img src="https://images.unsplash.com/photo-1588776814546-28b5b11a7f72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Healthcare Services" class="section-image">
-  <ul id="features-list">
-    <li>Patient Registration</li>
-    <li>Appointment Scheduling</li>
-    <li>Medical Records Management</li>
-    <li>Billing and Insurance Processing</li>
-  </ul>
+  <h2> Our Features</h2>
+
+  <div class="cards">
+    <div class="card">🧑 Patient Registration</div>
+    <div class="card">📅 Appointment Booking</div>
+    <div class="card">📁 Medical Records</div>
+    <div class="card">💳 Billing System</div>
+  </div>
 </section>
 
 <!-- Our Mission -->
-<section>
-  <h2 id="mission-heading">🎯 Our Mission</h2>
-  <img src="https://images.unsplash.com/photo-1581091012184-7c9c4b8f8fc8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Our Mission" class="section-image">
-  <p id="mission-para">To provide high-quality healthcare services to our community with compassion and respect.</p>
+<section class="mission-section">
+  <div class="mission-container">
+
+
+    <div class="mission-content">
+      <h2> Our Mission</h2>
+
+      <p class="mission-text">
+        Our mission is to deliver high-quality, accessible, and patient-centered healthcare services using modern technology. 
+        We aim to simplify hospital processes, improve patient experience, and ensure efficient medical care for everyone.
+      </p>
+
+      <ul class="mission-points">
+        <li>✔ Provide compassionate patient care</li>
+        <li>✔ Ensure fast and efficient services</li>
+        <li>✔ Use technology for better healthcare delivery</li>
+        <li>✔ Support emergency and critical care</li>
+      </ul>
+
+      <a href="about.html" class="btn primary">Learn More</a>
+    </div>
+
+  </div>
 </section>
 
 <!-- Testimonials -->
 <section>
-  <h2 id="testimonial-heading">💬 Testimonials</h2>
-  <p>"The care I received was exceptional!" — <strong>Monisha Singha</strong></p>
-  <p>"I highly recommend this hospital!" — <strong>Krishna</strong></p>
+  <h2> Testimonials</h2>
+
+  <div class="cards">
+    <div class="card">
+      ⭐⭐⭐⭐⭐<br>
+      "The care I received was exceptional!"  
+      <br><strong>- Monisha</strong>
+    </div>
+
+    <div class="card">
+      ⭐⭐⭐⭐⭐<br>
+      "Highly recommended hospital!"  
+      <br><strong>- Krishna</strong>
+    </div>
+  </div>
 </section>
 
 <!-- Latest News -->
-<section>
-  <h2 id="news-heading">📰 Latest News</h2>
-  <img src="https://images.unsplash.com/photo-1588776814613-9d20904f687a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Hospital News" class="section-image">
-  <ul>
-    <li>New health guidelines released on January 1, 2025.</li>
-    <li>Our hospital received the Best Healthcare Provider award!</li>
-    <li>Free health check-up camp on March 15, 2025.</li>
-  </ul>
+<section class="news-section">
+  <h2>📰 Latest News & Updates</h2>
+
+  <div class="news-container">
+
+    <div class="news-card">
+      <img src="https://images.pexels.com/photos/5452201/pexels-photo-5452201.jpeg" alt="Doctor">
+      <div class="news-content">
+        <h3>New Health Guidelines</h3>
+        <p>Updated healthcare guidelines released on January 1, 2025 to improve patient safety.</p>
+      </div>
+    </div>
+
+    <div class="news-card">
+      <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800" alt="Award">
+      <div class="news-content">
+        <h3>Best Healthcare Provider Award</h3>
+        <p>Our hospital has been recognized as the best healthcare provider of the year.</p>
+      </div>
+    </div>
+
+    <div class="news-card">
+      <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=1350&q=80" alt="Camp">
+      <div class="news-content">
+        <h3>Free Health Camp</h3>
+        <p>Join our free health check-up camp on March 15, 2025 for community wellness.</p>
+      </div>
+    </div>
+
+  </div>
 </section>
 
 <!-- Meet Our Team -->
 <section>
-  <h2 id="team-heading">👩‍⚕️ Meet Our Team</h2>
-  <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a48c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Hospital Team" class="section-image">
-  <p>Our dedicated team of healthcare professionals is here to serve you:</p>
-  <ul>
-    <li>Dr. R.P. Gupta — Chief Medical Officer</li>
-    <li>Dr. A.K. Bansal — Head of Surgery</li>
-  </ul>
+  <h2 id="team-heading"> Meet Our Team</h2>
+  <div class="cards">
+  <div class="card">
+     Dr. R.P. Gupta  
+    <br>Chief Medical Officer
+  </div>
+
+  <div class="card">
+     Dr. A.K. Bansal  
+    <br>Head of Surgery
+  </div>
+</div>
 </section>
 
 </main>
 
 <footer>
-  <p>&copy; 2025 Hospital Management System. All rights reserved.</p>
+  <p>&copy; 2026 Hospital Management System. All rights reserved.</p>
 </footer>
-
-<script>
-// Theme toggle
-const toggleButton = document.getElementById('theme-toggle');
-
-if (localStorage.getItem('theme') === 'night') {
-    document.documentElement.setAttribute('data-theme', 'night');
-    toggleButton.textContent = '🌙';
-} else {
-    document.documentElement.setAttribute('data-theme', 'day');
-    toggleButton.textContent = '☀️';
-}
-
-toggleButton.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    if (currentTheme === 'night') {
-        document.documentElement.setAttribute('data-theme', 'day');
-        localStorage.setItem('theme', 'day');
-        toggleButton.textContent = '☀️';
-    } else {
-        document.documentElement.setAttribute('data-theme', 'night');
-        localStorage.setItem('theme', 'night');
-        toggleButton.textContent = '🌙';
-    }
-});
-
-</script>
-
-// Language changer
 
 <!-- ✅ Google Translate Script -->
 <script type="text/javascript">
@@ -249,7 +289,6 @@ toggleButton.addEventListener('click', () => {
     );
   }
 </script>
-
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script src="theme.js"></script>
 </body>

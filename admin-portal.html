@@ -2,110 +2,300 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Portal - HMS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-site-verification" content="0MYD2hmJa67kAOQxlN6TVwHK5dqaWhAbK1doGrWX6wo" />
+  <title>Hospital Management System - Admin Portal</title>
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="styles.css">
+
   <style>
-    body { font-family: Arial, sans-serif; background:#f4f4f4; margin:0; padding:0; }
-    header { background:#1f3c88; color:#fff; padding:20px; text-align:center; }
-    main { max-width:900px; margin:20px auto; }
-    section { background:#fff; padding:20px; margin-bottom:20px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
-    button { margin:5px; padding:8px 15px; border:none; border-radius:6px; cursor:pointer; }
-    .approve { background:#28a745; color:#fff; }
-    .reject { background:#dc3545; color:#fff; }
-    .doctor-card { padding:15px; border:1px solid #ddd; border-radius:8px; margin-bottom:15px; background:#fafafa; }
-    .doctor-card img { max-width:120px; border-radius:8px; margin-top:10px; }
+     :root {
+      --background-color: #f4f4f4;
+      --text-color: #333;
+      --header-background: linear-gradient(to right, #8e0e00, #1f1c18);
+      --header-text-color: #ffffff;
+      --button-background: #007bff;
+      --button-text-color: #ffffff;
+      --section-background: rgba(255, 255, 255, 0.95);
+      }
+
+     header {
+      background: #1f3c88;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    header h1 {
+      padding: 40px 20px;
+      background: url('https://media.istockphoto.com/id/638377134/photo/doctor-man-with-stethoscope-in-hospital.jpg?s=2048x2048&w=is&k=20&c=wmTKy8oac1j4PfFnJxCO-7TBho4R2lNlWzMm0Rl1gvs=') 
+                  center/cover no-repeat;
+      background-blend-mode: overlay;
+      background-color: rgba(0, 0, 0, 0.4);
+      color: #ffffff;
+      font-size: 2.5rem;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+
+    section {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #35424a;
+      color: #ffffff;
+      margin-top: 20px;
+    }
+
+    /* ---------- Buttons ---------- */
+    button {
+      margin: 5px;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .approve { background: #28a745; color: #fff; }
+    .reject { background: #dc3545; color: #fff; }
+
+    .button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #5cb85c;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* ---------- Doctor Cards ---------- */
+    .doctor-card {
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      background: #fafafa;
+    }
+
+    .doctor-card img {
+      max-width: 120px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    /* ---------- Theme (Night Mode) ---------- */
+    [data-theme="night"] {
+      --background-color: #121212;
+      --text-color: #f1f1f1;
+      --header-background: linear-gradient(to right, #1A1A2E, #1f1c18);
+      --header-text-color: #ffffff;
+      --button-background: #5cb85c;
+      --button-text-color: #ffffff;
+      --section-background: rgba(30, 30, 30, 0.95);
+    }
+
+    body {
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      color: var(--header-text-color);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav ul li a:hover { color: #ffcc00; }
+
+    @media (max-width: 600px) {
+      nav ul li {
+        display: block;
+        margin: 5px 0;
+      }
+    }
+
+    /* Google Translate */
+    #google_translate_element {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>Admin Portal</h1>
-  <button onclick="logout()" style="float:right;background:#dc3545;color:#fff;padding:8px 15px;border:none;border-radius:6px;">Logout</button>
-</header>
+  <!-- ---------- Header ---------- -->
+  <header>
+    <h1>Admin Portal</h1>
+    <div id="google_translate_element"></div>
 
-<main>
-  <section>
-    <h2>Pending Doctor Approvals</h2>
-    <div id="doctorList"></div>
-  </section>
-</main>
+    <!-- Logout -->
+    <button onclick="logout()" 
+            style="float:right;background:#dc3545;color:#fff;padding:8px 15px;border:none;border-radius:6px;">
+      Logout
+    </button>
 
-<script>
-(function(){
-  const loggedInUser = localStorage.getItem("loggedInUser");
-  const role = localStorage.getItem("userRole");
+    <!-- Theme toggle -->
+    <button id="theme-toggle" class="button">🌙</button>
+  </header>
 
-  if(!loggedInUser || role !== "admin"){
-    alert("Unauthorized! Please log in as Admin.");
-    window.location.href = "admin-login.html";
-    return;
-  }
-})();
+  <!-- ---------- Main Content ---------- -->
+  <main>
+    <section>
+      <h2>Pending Doctor Approvals</h2>
+      <div id="doctorList"></div>
+    </section>
+  </main>
 
-// Load pending doctors
-function loadPendingDoctors(){
-  const users = JSON.parse(localStorage.getItem("users")) || [];
-  const doctorList = document.getElementById("doctorList");
-  doctorList.innerHTML = "";
+  <!-- ---------- Footer ---------- -->
+  <footer>
+    <p>&copy; 2025 Hospital Management System. All rights reserved.</p>
+  </footer>
 
-  const pendingDoctors = users.filter(u => u.role === "doctor" && u.status === "pending");
+  <!-- ---------- Theme Toggle Script ---------- -->
+  <script>
+    const toggleButton = document.getElementById('theme-toggle');
 
-  if(pendingDoctors.length === 0){
-    doctorList.innerHTML = "<p>No pending doctor requests.</p>";
-    return;
-  }
-
-  pendingDoctors.forEach((doc) => {
-    const div = document.createElement("div");
-    div.classList.add("doctor-card");
-    div.innerHTML = `
-      <p><strong>${doc.username}</strong> (${doc.email})</p>
-      <p><b>Specialization:</b> ${doc.specialization}</p>
-      <p><b>Degree:</b> ${doc.degree}</p>
-      <p><b>License No:</b> ${doc.license}</p>
-      <p><b>Aadhar No:</b> ${doc.aadhar}</p>
-      <p><b>Mobile:</b> ${doc.mobile}</p>
-      ${doc.photo ? `<p><b>Photo:</b><br><img src="${doc.photo}" alt="Doctor Photo"></p>` : ""}
-      <button class="approve" onclick="approveDoctor('${doc.email}')">Approve</button>
-      <button class="reject" onclick="rejectDoctor('${doc.email}')">Reject</button>
-    `;
-    doctorList.appendChild(div);
-  });
-}
-
-// Approve doctor
-function approveDoctor(email){
-  let users = JSON.parse(localStorage.getItem("users")) || [];
-  users = users.map(u => {
-    if(u.email === email && u.role === "doctor"){
-      u.status = "approved";
+    // Set theme from localStorage
+    if (localStorage.getItem('theme') === 'night') {
+      document.documentElement.setAttribute('data-theme', 'night');
+      toggleButton.textContent = '🌙';
+    } else {
+      document.documentElement.setAttribute('data-theme', 'day');
+      toggleButton.textContent = '☀️';
     }
-    return u;
-  });
-  localStorage.setItem("users", JSON.stringify(users));
-  alert("Doctor approved successfully!");
-  loadPendingDoctors();
+
+    // Toggle theme on click
+    toggleButton.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+
+      if (currentTheme === 'night') {
+        document.documentElement.setAttribute('data-theme', 'day');
+        localStorage.setItem('theme', 'day');
+        toggleButton.textContent = '☀️';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'night');
+        localStorage.setItem('theme', 'night');
+        toggleButton.textContent = '🌙';
+      }
+    });
+  </script>
+
+  <!-- ---------- Google Translate ---------- -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        { pageLanguage: 'en' },
+        'google_translate_element'
+      );
+    }
+  </script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <!-- ---------- Admin JS Logic ---------- -->
+  <script>
+    // Check if logged in as Admin
+    const token = localStorage.getItem("token");
+const role = localStorage.getItem("role");
+
+if (!token || role !== "admin") {
+    alert("Unauthorized! Please log in as Admin.");
+    window.location.href = "login.html";
 }
 
-// Reject doctor
-function rejectDoctor(email){
-  let users = JSON.parse(localStorage.getItem("users")) || [];
-  users = users.filter(u => !(u.email === email && u.role === "doctor"));
-  localStorage.setItem("users", JSON.stringify(users));
-  alert("Doctor rejected and removed.");
-  loadPendingDoctors();
-}
+    // Load pending doctors
+    function loadPendingDoctors(){
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+      const doctorList = document.getElementById("doctorList");
+      doctorList.innerHTML = "";
 
-// Logout
-function logout(){
-  localStorage.removeItem("loggedInUser");
-  localStorage.removeItem("userRole");
-  window.location.href = "admin-login.html";
-}
+      const pendingDoctors = users.filter(u => u.role === "doctor" && u.status === "pending");
 
-// Load doctors on page load
-document.addEventListener("DOMContentLoaded", loadPendingDoctors);
-</script>
+      if(pendingDoctors.length === 0){
+        doctorList.innerHTML = "<p>No pending doctor requests.</p>";
+        return;
+      }
+
+      pendingDoctors.forEach((doc) => {
+        const div = document.createElement("div");
+        div.classList.add("doctor-card");
+
+        div.innerHTML = `
+          <p><strong>${doc.username}</strong> (${doc.email})</p>
+          <p><b>Specialization:</b> ${doc.specialization}</p>
+          <p><b>Degree:</b> ${doc.degree}</p>
+          <p><b>License No:</b> ${doc.license}</p>
+          <p><b>Aadhar No:</b> ${doc.aadhar}</p>
+          <p><b>Mobile:</b> ${doc.mobile}</p>
+          ${doc.photo ? `<p><b>Photo:</b><br><img src="${doc.photo}" alt="Doctor Photo"></p>` : ""}
+          <button class="approve" onclick="approveDoctor('${doc.email}')">Approve</button>
+          <button class="reject" onclick="rejectDoctor('${doc.email}')">Reject</button>
+        `;
+        doctorList.appendChild(div);
+      });
+    }
+
+    // Approve doctor
+    function approveDoctor(email){
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+      users = users.map(u => {
+        if(u.email === email && u.role === "doctor"){
+          u.status = "approved";
+        }
+        return u;
+      });
+      localStorage.setItem("users", JSON.stringify(users));
+      alert("Doctor approved successfully!");
+      loadPendingDoctors();
+    }
+
+    // Reject doctor
+    function rejectDoctor(email){
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+      users = users.filter(u => !(u.email === email && u.role === "doctor"));
+      localStorage.setItem("users", JSON.stringify(users));
+      alert("Doctor rejected and removed.");
+      loadPendingDoctors();
+    }
+
+    // Logout
+    function logout(){
+      localStorage.removeItem("token");
+      localStorage.removeItem("role");
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "admin-login.html";
+    }
+
+    // Load doctors on page load
+    document.addEventListener("DOMContentLoaded", loadPendingDoctors);
+  </script>
 
 </body>
 </html>

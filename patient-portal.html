@@ -137,23 +137,30 @@
 
   <!-- Login / Portal Script -->
   <script>
-    (function initPortal() {
-      const loggedInUserStr = localStorage.getItem("loggedInUser");
-      if (!loggedInUserStr) {
-        alert("Unauthorized! Please log in as a patient.");
-        window.location.href = "login.html";
-        return;
-      }
+(function initPortal() {
 
-      const loggedInUser = JSON.parse(loggedInUserStr);
-      if (!loggedInUser.role || loggedInUser.role !== "patient") {
-        alert("Unauthorized! Please log in as a patient.");
-        window.location.href = "login.html";
-        return;
-      }
+  const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
+  const userData = localStorage.getItem("loggedInUser");
 
-      // Greeting
-      document.getElementById("user-greeting").innerHTML = `Hello, <strong>${escapeHtml(loggedInUser.username)}</strong>`;
+  if (!token || role !== "patient") {
+    alert("Unauthorized! Please log in as a patient.");
+    window.location.href = "login.html";
+    return;
+  }
+
+  let loggedInUser = { name: "Patient", email: "" };
+
+  if (userData) {
+  try {
+    loggedInUser = JSON.parse(userData);
+  } catch (e) {
+    loggedInUser = { name: "Patient", email: "" };
+  }
+}
+       // Greeting
+  document.getElementById("user-greeting").innerHTML =
+    `Hello, <strong>${loggedInUser.name}</strong>`;
 
       // Ambulance
       document.getElementById("ambulanceBtn").style.display = "flex";
@@ -166,9 +173,14 @@
       const today = new Date();
       const daysSinceLastVisit = Math.floor((today - lastVisitDate) / (1000*60*60*24));
       let suggestion = "👨‍⚕️ Hello! How can I assist you today?";
-      if (daysSinceLastVisit > 30) suggestion = `🕒 ${escapeHtml(loggedInUser.username)}, it’s been over a month since your last checkup. Want to book an appointment?`;
-      else if (daysSinceLastVisit > 15) suggestion = `📅 ${escapeHtml(loggedInUser.username)}, need help finding your last visit records?`;
-      else suggestion = `✅ ${escapeHtml(loggedInUser.username)}, everything seems fine. Let us know if you need help.`;
+      if (daysSinceLastVisit > 30) suggestion =
+`🕒 ${escapeHtml(loggedInUser.name)}, it’s been over a month since your last checkup. Want to book an appointment?`;
+
+else if (daysSinceLastVisit > 15) suggestion =
+`📅 ${escapeHtml(loggedInUser.name)}, need help finding your last visit records?`;
+
+else suggestion =
+`✅ ${escapeHtml(loggedInUser.name)}, everything seems fine. Let us know if you need help.`;
       document.getElementById("suggestion-text").innerText = suggestion;
       setTimeout(() => { document.getElementById("ai-suggestion-box").style.display = "block"; }, 1200);
 
@@ -186,12 +198,17 @@
     })();
 
     function logout() {
-      localStorage.removeItem("loggedInUser");
-      alert("You have been logged out.");
-      window.location.href = "login.html";
-    }
+  localStorage.removeItem("token");
+  localStorage.removeItem("role");
+  localStorage.removeItem("loggedInUser");
 
-    function closeSuggestion() { document.getElementById("ai-suggestion-box").style.display = "none"; }
+  alert("Logged out successfully");
+  window.location.href = "login.html";
+}
+
+   function closeSuggestion() {
+  document.getElementById("ai-suggestion-box").style.display = "none";
+}
 
     function escapeHtml(str) {
       if(!str) return '';

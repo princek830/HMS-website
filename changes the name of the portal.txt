@@ -37,4 +37,169 @@ Database	MongoDB (with Mongoose)
   Chatbot Interface  -  Guide users with questions                   
   Smart Translation  - Translate all dynamic text                   
   “Near You” Suggestions  - Based on location / past use             
-now iam working on multilanguage that is directly connected to google     
+now iam working on multilanguage that is directly connected to google    
+localStorage.clear(); console reset local storage 
+
+[[[[[[
+How to Run
+Open CMD in your project folder.
+Run:
+
+node server.js
+
+Open browser:
+Signup Page → http://localhost:5000/signup.html
+Login Page → http://localhost:5000/login.html   ]]]]]]]
+
+doctor portal update 
+1️⃣ When doctor searches:
+
+A GET request is sent to /getPatientHistory?email=patient@gmail.com
+
+Server reads records.json → filters all records for that email → sends back as a list.
+
+2️⃣ When doctor adds a record:
+
+A POST request goes to /addRecord
+
+Server stores new data (like diagnosis, doctor name, date) inside records.json
+Step 4 — File Details
+🧠 File 1: doctor-portal.html
+
+Contains:
+
+A search bar for patient email
+
+Table showing history
+
+Form for adding new records
+
+👉 I’ll design this cleanly (like your other HMS pages).
+Doctors will see:
+
+Search Patient by Email: [_________________] [Search]
+-------------------------------------------------
+| Date       | Doctor       | Diagnosis     | Prescription   |
+-------------------------------------------------
+| 2025-10-09 | Dr. Meena     | Fever         | Paracetamol     |
+-------------------------------------------------
+
+
+Then below:
+
+Add New Record:
+Diagnosis: [____________]
+Prescription: [____________]
+[Add Record]
+
+🖥️ File 2: server.js
+
+We’ll:
+
+Import fs (for file operations)
+
+Add 2 new routes:
+
+/addRecord (POST)
+
+/getPatientHistory (GET)
+
+Example routes:
+
+app.post("/addRecord", ... );
+app.get("/getPatientHistory", ... );
+
+
+These routes will read/write data from records.json.
+add.get 
+add.post 
+
+📘 File 3: records.json
+
+Stores all records in this format:
+
+[
+  {
+    "email": "ram@gmail.com",
+    "doctor": "Dr. Priya",
+    "diagnosis": "Cold",
+    "prescription": "Cetirizine",
+    "date": "2025-10-09"
+  },
+  {
+    "email": "ram@gmail.com",
+    "doctor": "Dr. Meena",
+    "diagnosis": "Fever",
+    "prescription": "Paracetamol",
+    "date": "2025-09-25"
+  }
+]
+
+🚀 Step 5 — How the Doctor Uses It
+
+Doctor logs in → goes to doctor-portal.html.
+
+Searches patient email → gets all past records.
+
+Adds a new record → system saves it → immediately shows updated history.
+https://princek830.github.io/HMS-website/admin-login.html
+node server.js
+$env:PORT="5000"; node server.js
+{
+  "name": "Prince",
+  "email": "prince@example.com",
+  "password": "pass123",
+  "role": "patient"
+}
+
+ http://localhost:5000/api/auth/signup
+ Get-Process | Where-Object {$_.ProcessName -like "node"}
+ cd "C:\Users\dell\OneDrive\Desktop\hospitalmanagementsystem website\backend"
+ $env:PORT="5000"; node server.js
+ POST http://localhost:5000/api/auth/signup
+ https://cloud.mongodb.com
+
+ http://localhost:5000/api/auth/signup
+ {
+  "name": "HMS Admin",
+  "email": "admin@example.com",
+  "password": "admin123",
+  "role": "admin"
+}
+
+ http://localhost:5000/api/auth/login
+ {
+  "email": "admin@example.com",
+  "password": "admin123"
+}
+
+ {
+    "ok": true,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MWY3YmI3NzZmZmY0MDQ4ZThiMmU2YSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2MzY3MTA3MywiZXhwIjoxNzY0Mjc1ODczfQ.D6vHTxo961vEiAUyVkAiLp0VXmbAvr2v86TS6fBTvIk",
+    "user": {
+        "id": "691f7bb776fff4048e8b2e6a",
+        "name": "HMS Admin",
+        "role": "admin",
+        "isApproved": true
+    }
+}
+
+
+http://localhost:5000/api/auth/signup
+{
+  "name": "Dr. Neha Sharma",
+  "email": "drneha@example.com",
+  "password": "doc123",
+  "role": "doctor"
+}
+
+GET http://localhost:5000/api/admin/doctors/pending
+Haders- Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MWY3YmI3NzZmZmY0MDQ4ZThiMmU2YSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2MzY3MTA3MywiZXhwIjoxNzY0Mjc1ODczfQ.D6vHTxo961vEiAUyVkAiLp0VXmbAvr2v86TS6fBTvIk
+
+Approving doctor 
+Post http://localhost:5000/api/admin/doctors/approve
+691f7cf476fff4048e8b2e6e
+{
+  "doctorId": "6917fcf476fff4048e8b2e6e"
+}
+header -Authorization: Bearer <ADMIN_TOKEN>

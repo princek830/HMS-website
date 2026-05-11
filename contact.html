@@ -316,33 +316,9 @@
   <footer>
     <p>&copy; 2025 Hospital Management System. All rights reserved.</p>
   </footer>
-  <a href="tel:108" class="ambulance-float" title="Call Ambulance">🚑</a>
   
-<script>
-// Theme toggle
-const toggleButton = document.getElementById('theme-toggle');
-
-if (localStorage.getItem('theme') === 'night') {
-    document.documentElement.setAttribute('data-theme', 'night');
-    toggleButton.textContent = '🌙';
-} else {
-    document.documentElement.setAttribute('data-theme', 'day');
-    toggleButton.textContent = '☀️';
-}
-
-toggleButton.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    if (currentTheme === 'night') {
-        document.documentElement.setAttribute('data-theme', 'day');
-        localStorage.setItem('theme', 'day');
-        toggleButton.textContent = '☀️';
-    } else {
-        document.documentElement.setAttribute('data-theme', 'night');
-        localStorage.setItem('theme', 'night');
-        toggleButton.textContent = '🌙';
-    }
-});
-    </script>
+  
+<!--  -->
 <!-- ✅ Google Translate Script -->
 <script type="text/javascript">
   function googleTranslateElementInit() {

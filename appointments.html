@@ -170,7 +170,7 @@
         <section>
         
             <h2>Book an Appointment</h2>
-            <form action="submit-appointment.html" method="POST">
+            <form id="appointmentForm">
                 <label for="patient-name">Name:</label>
                 <input type="text" id="patient-name" name="patient-name" required>
 
@@ -220,7 +220,7 @@
     <a href="tel:108" class="ambulance-float" title="Call Ambulance">🚑</a>   /*ambulance*/
 
     <script>
-// Theme toggle
+// Theme Toggle
 const toggleButton = document.getElementById('theme-toggle');
 
 if (localStorage.getItem('theme') === 'night') {
@@ -233,6 +233,7 @@ if (localStorage.getItem('theme') === 'night') {
 
 toggleButton.addEventListener('click', () => {
     const currentTheme = document.documentElement.getAttribute('data-theme');
+
     if (currentTheme === 'night') {
         document.documentElement.setAttribute('data-theme', 'day');
         localStorage.setItem('theme', 'day');
@@ -244,6 +245,44 @@ toggleButton.addEventListener('click', () => {
     }
 });
 
-   </script>
+
+// Appointment Booking
+document.getElementById("appointmentForm").addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    const patientName = document.getElementById("patient-name").value;
+    const date = document.getElementById("appointment-date").value;
+    const time = document.getElementById("appointment-time").value;
+    const doctor = document.getElementById("doctor").value;
+
+    try {
+        const res = await fetch("http://localhost:5000/api/appointments/book", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                patientId: patientName,
+                doctorId: doctor,
+                date: date,
+                timeSlot: time
+            })
+        });
+
+        const data = await res.json();
+
+        if(data.ok){
+            alert("Appointment booked successfully!");
+            location.reload();
+        } else {
+            alert(data.message || "Booking failed");
+        }
+
+    } catch(error){
+        console.error(error);
+        alert("Server error while booking appointment");
+    }
+});
+</script>
 </body>
 </html>

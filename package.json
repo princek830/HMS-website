@@ -1,0 +1,25 @@
+{
+  "name": "hospitalmanagementsystem-website",
+  "version": "1.0.0",
+  "description": "This Hospital Management System is a modern, responsive, and feature-rich website developed to simplify and digitize healthcare services. It provides easy access to appointment booking, patient portals, multilingual support, ambulance services, and more — built with HTML, CSS, JavaScript, and Node.js (future).",
+  "main": "blockchain.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/princek830/HMS-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/princek830/HMS-website/issues"
+  },
+  "homepage": "https://github.com/princek830/HMS-website#readme",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "express": "^5.1.0"
+  }
+}

@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Blood Management System</title>
+<link rel="stylesheet" href="styles.css"> <!-- Link to CSS file -->
+<style>
+  /* Reset & Base */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: #000;
+    line-height: 1.6;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  button {
+    cursor: pointer;
+    border: none;
+  }
+
+  /* Colors */
+  :root {
+    --red: #D32F2F;
+    --soft-pink: #FFE6E6;
+    --light-gray: #F5F5F5;
+    --black-text: #000000;
+    --white: #ffffff;
+  }
+
+  /* Container */
+  .container {
+    max-width: 1200px;
+    padding: 0 1rem;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  header {
+    position: sticky;
+    top: 0;
+    background: var(--white);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    z-index: 1000;
+  }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+  }
+  .logo {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--red);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .logo svg {
+    width: 28px;
+    height: 28px;
+    fill: var(--red);
+  }
+
+  /* Nav Links */
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+  .nav-links a {
+    color: var(--black-text);
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+  .nav-links a:hover {
+    color: var(--red);
+  }
+  .button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: var(--button-background);
+      color: var(--button-text-color);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+  /* Donate Now Button */
+  .btn-donate {
+    background: var(--red);
+    padding: 0.5rem 1rem;
+    color: var(--white);
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background 0.3s ease;
+  }
+  .btn-donate:hover {
+    background: #a82828;
+  }
+
+  /* Hero Section */
+  .hero {
+    background: linear-gradient(180deg, var(--red) 0%, var(--white) 100%);
+    display: flex;
+    align-items: center;
+    padding: 3rem 0;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .hero-text {
+    flex: 1 1 350px;
+  }
+  .hero-text h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: var(--white);
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  }
+  .hero-text p {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    color: #222;
+  }
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+  }
+  .btn-primary {
+    background: var(--red);
+    color: var(--white);
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: background 0.3s ease;
+    border: none;
+  }
+  .btn-primary:hover {
+    background: #a82828;
+  }
+  .btn-secondary {
+    background: transparent;
+    border: 2px solid var(--red);
+    color: var(--red);
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+  }
+  .btn-secondary:hover {
+    background: var(--red);
+    color: var(--white);
+  }
+
+  .hero-illustration {
+    flex: 1 1 350px;
+    text-align: center;
+  }
+
+  /* Why Donate Section */
+  .why-donate {
+    background: var(--white);
+    margin: 3rem 0;
+    border-radius: 16px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    padding: 2rem;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .why-donate-text {
+    flex: 1 1 400px;
+  }
+  .why-donate-text h2 {
+    color: var(--red);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .why-donate-text h2 svg {
+    width: 26px;
+    height: 26px;
+    fill: var(--red);
+  }
+  .why-donate-text p {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+  .btn-read-more {
+    background: var(--red);
+    padding: 0.5rem 1.2rem;
+    color: var(--white);
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    box-shadow: 0 0 8px rgba(211,47,47,0.6);
+    transition: background 0.3s ease;
+  }
+  .btn-read-more:hover {
+    background: #a82828;
+  }
+
+  .why-donate-illustration {
+    flex: 1 1 300px;
+    text-align: center;
+  }
+
+  /* Features Section */
+  .features {
+    margin-bottom: 3rem;
+    display: grid;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 1.8rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  .feature-card {
+    background: var(--white);
+    border-radius: 14px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    padding: 1.5rem 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .feature-icon {
+    background: var(--red);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+    font-size: 1.8rem;
+  }
+  .feature-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #222;
+  }
+
+  /* Registration Form */
+  .registration {
+    max-width: 700px;
+    background: var(--white);
+    margin: 0 auto 4rem;
+    padding: 1.8rem 2.2rem;
+    border-radius: 16px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  }
+  .registration h2 {
+    text-align: center;
+    color: var(--red);
+    margin-bottom: 1.4rem;
+  }
+  form {
+    display: grid;
+    gap: 1.2rem;
+  }
+  label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.3rem;
+    display: block;
+  }
+  input[type=text],
+  input[type=email],
+  input[type=tel],
+  input[type=number],
+  input[type=date],
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.7rem 1rem 0.7rem 2.5rem;
+    border: 1.5px solid #ddd;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    font-family: inherit;
+    position: relative;
+  }
+  input[type=text]:focus,
+  input[type=email]:focus,
+  input[type=tel]:focus,
+  input[type=number]:focus,
+  input[type=date]:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--red);
+    box-shadow: 0 0 6px rgba(211, 47, 47, 0.4);
+  }
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  /* Input icon wrapper */
+  .input-icon {
+    position: relative;
+  }
+  .input-icon svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    fill: var(--red);
+    pointer-events: none;
+  }
+  /* Radio and checkbox groups */
+  .form-radio-group {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .form-radio-group label {
+    font-weight: 500;
+  }
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+  }
+  input[type=checkbox] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--red);
+  }
+  /* Submit button */
+  .btn-submit {
+    margin-top: 1rem;
+    width: 100%;
+    background: var(--red);
+    color: var(--white);
+    font-size: 1.2rem;
+    padding: 0.8rem 0;
+    border-radius: 12px;
+    font-weight: 700;
+    border: none;
+    transition: background 0.3s ease;
+  }
+  .btn-submit:hover:not(:disabled) {
+    background: #a82828;
+  }
+  .btn-submit:disabled {
+    background: #ef9a9a;
+    cursor: not-allowed;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav {
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .nav-links {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      width: 100%;
+      order: 3;
+    }
+    .btn-donate {
+      order: 2;
+      width: 100%;
+      text-align: center;
+    }
+    .hero {
+      flex-direction: column;
+      text-align: center;
+    }
+    .hero-text h1 {
+      font-size: 2.2rem;
+      color: var(--red);
+      text-shadow: none;
+    }
+    .hero-text p {
+      color: #444;
+    }
+    .hero-illustration {
+      flex: none;
+      margin-top: 2rem;
+    }
+
+    .why-donate {
+      flex-direction: column;
+    }
+    .why-donate-text, .why-donate-illustration {
+      flex: none;
+      text-align: center;
+    }
+  }
+  #google_translate_element {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+<nav class="container">
+  <a href="#" class="logo" aria-label="Blood Donation Camp logo">
+    <!-- Heart + Drop SVG -->
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 
+               7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 
+               19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+    </svg> 
+    Blood Donation Camp
+  </a>
+
+  <div class="nav-links" role="menu" aria-label="Primary Navigation">
+    <a href="#home" role="menuitem" tabindex="0">Home</a>
+    <a href="#donors" role="menuitem" tabindex="0">Donors</a>
+    <a href="#about" role="menuitem" tabindex="0">About</a>
+    <a href="#contact" role="menuitem" tabindex="0">Contact</a>
+  </div>
+  <button class="btn-donate" aria-label="Donate Now">Donate</button>
+</nav>
+</header>
+
+<!-- Hero Section -->
+<section class="hero container" id="home" role="banner" aria-label="Hero Section">
+  <div class="hero-text">
+    <h1>Join Us in Saving Lives</h1>
+    <p>Donate blood today and give someone the gift of life.</p>
+    <div class="hero-buttons">
+      <button class="btn-primary" aria-label="Donate Now button">Donate Now</button>
+      <button class="btn-secondary" aria-label="Become a Volunteer button">Become a Volunteer</button>
+    </div>
+  </div>
+  <div class="hero-illustration" aria-hidden="true">
+    <!-- Sample friendly illustration of donor + blood bag -->
+    <svg width="320" height="260" viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg" fill="none" >
+      <!-- Blood bag and donor simplified illustration -->
+      <rect x="110" y="30" width="100" height="140" rx="10" fill="#D32F2F" />
+      <circle cx="160" cy="50" r="12" fill="white"/>
+      <line x1="160" y1="62" x2="160" y2="140" stroke="white" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="160" cy="210" r="20" fill="#D32F2F" />
+      <!-- hearts -->
+      <path fill="#D32F2F" d="M250 90c9 0 16 7 16 16s-7 16-16 16-16-7-16-16 7-16 16-16z"/>
+      <path fill="#D32F2F" d="M270 120c6 0 11 5 11 11s-5 11-11 11-11-5-11-11 5-11 11-11z" />
+      <circle cx="200" cy="150" r="40" fill="rgba(211,47,47,0.3)" />
+    </svg>
+  </div>
+</section>
+
+<!-- Why Donate Section -->
+<section class="why-donate container" aria-labelledby="why-donate-title">
+  <div class="why-donate-text">
+    <h2 id="why-donate-title">
+      <!-- Heart + Drop icon -->
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="width:24px; height:24px;">
+        <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 
+          2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09 
+          C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5 
+          c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+      </svg>
+      Why Should I Donate Blood?
+    </h2>
+    <p>
+      Blood is needed to save lives in times of emergencies and to sustain the lives of those with medical conditions like leukemia, thalassemia, and bleeding disorders, as well as patients who are undergoing major surgeries. For many patients, blood donors are their lifeline.
+    </p>
+    <button class="btn-read-more" aria-label="Read more about why donate blood">Read more</button>
+  </div>
+  <div class="why-donate-illustration" aria-hidden="true">
+    <svg width="280" height="180" viewBox="0 0 280 180" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <!-- Cartoon style donor and bag -->
+      <rect x="20" y="80" width="50" height="60" fill="#D32F2F" rx="10" />
+      <circle cx="45" cy="65" r="15" fill="#FFC8C8"/>
+      <rect x="120" y="80" width="70" height="80" fill="#F0F0F0" rx="14" />
+      <circle cx="155" cy="100" r="12" fill="#D32F2F" />
+      <circle cx="160" cy="100" r="4" fill="#FFF"/>
+      <circle cx="130" cy="140" r="3" fill="#D32F2F" />
+      <circle cx="180" cy="140" r="3" fill="#D32F2F" />
+    </svg>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="features container" aria-label="Key Features">
+  <article class="feature-card">
+    <div class="feature-icon" aria-hidden="true">✔️</div>
+    <p class="feature-text">Patient Safety & Hygiene</p>
+  </article>
+  <article class="feature-card">
+    <div class="feature-icon" aria-hidden="true">✔️</div>
+    <p class="feature-text">Blood Screening & Testing</p>
+  </article>
+  <article class="feature-card">
+    <div class="feature-icon" aria-hidden="true">✔️</div>
+    <p class="feature-text">Experienced Medical Team</p>
+  </article>
+  <article class="feature-card">
+    <div class="feature-icon" aria-hidden="true">✔️</div>
+    <p class="feature-text">Post-Donation Care</p>
+  </article>
+  <article class="feature-card">
+    <div class="feature-icon" aria-hidden="true">✔️</div>
+    <p class="feature-text">Donor Reports & Tracking</p>
+  </article>
+  <article class="feature-card">
+    <div class="feature-icon" aria-hidden="true">✔️</div>
+    <p class="feature-text">Real-time Availability of Blood Groups</p>
+  </article>
+</section>
+
+<!-- Registration Form -->
+<section class="registration container" aria-labelledby="register-title">
+  <h2 id="register-title">Register / Appointment Form</h2>
+  <form id="donationForm" aria-describedby="form-instruction" novalidate>
+    <div class="input-icon">
+      <label for="fullname">Patient Full Name</label>
+      <input type="text" id="fullname" name="fullname" placeholder="John Doe" required aria-required="true" />
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 12c2.21 0 4-0.89 4-2s-1.79-2-4-2-4 0.89-4 2 1.79 2 4 2zM6 18c0-2 4-3 6-3s6 1 6 3v2H6v-2z"/></svg>
+    </div>
+    <div class="input-icon">
+      <label for="age">Age</label>
+      <input type="number" id="age" name="age" min="1" max="120" placeholder="30" required aria-required="true" />
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a10 10 0 1010 10A10.0114 10.0114 0 0012 2zm1 15h-2v-2h2zm0-4h-2V7h2z"/></svg>
+    </div>
+
+    <fieldset class="form-radio-group" aria-label="Gender">
+      <legend>Gender</legend>
+      <label><input type="radio" name="gender" value="male" required /> Male</label>
+      <label><input type="radio" name="gender" value="female" /> Female</label>
+      <label><input type="radio" name="gender" value="other" /> Other</label>
+    </fieldset>
+
+    <div class="input-icon">
+      <label for="bloodgroup">Blood Group</label>
+      <select id="bloodgroup" name="bloodgroup" required aria-required="true">
+        <option value="">Select Blood Group</option>
+        <option value="A+">A+</option>
+        <option value="A−">A−</option>
+        <option value="B+">B+</option>
+        <option value="B−">B−</option>
+        <option value="AB+">AB+</option>
+        <option value="AB−">AB−</option>
+        <option value="O+">O+</option>
+        <option value="O−">O−</option>
+      </select>
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><path d="M12 2v20m10-10H2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </div>
+
+    <div class="input-icon">
+      <label for="state">State</label>
+      <select id="state" name="state" required aria-required="true">
+        <option value="">Select State</option>
+        <option>Lahore</option>
+        <option>Karachi</option>
+        <option>Islamabad</option>
+        <option>Multan</option>
+        <option>Faisalabad</option>
+      </select>
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </div>
+
+    <div class="input-icon">
+      <label for="city">City</label>
+      <input type="text" id="city" name="city" placeholder="e.g., Lahore" required aria-required="true" />
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a10 10 0 1010 10A10.0114 10.0114 0 0012 2zm1 15h-2v-2h2zm0-4h-2V7h2z"/></svg>
+    </div>
+
+    <div class="input-icon">
+      <label for="address">Complete Address</label>
+      <textarea id="address" name="address" placeholder="Street, Postal code, etc." required aria-required="true"></textarea>
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M3 6v12a3 3 0 003 3h12a3 3 0 003-3V6z"/></svg>
+    </div>
+
+    <div class="input-icon">
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" placeholder="+92 300 1234567" pattern="^\+?\d{10,15}$" required aria-required="true" />
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="2" d="M3 5h4L14 19l7-13h-4"/></svg>
+    </div>
+
+    <div class="input-icon">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="example@mail.com" required aria-required="true" />
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="2" d="M4 5h16M4 19h16M4 12l8 6 8-6"/></svg>
+    </div>
+
+    <div class="input-icon">
+      <label for="emergencyname">Emergency Contact Name</label>
+      <input type="text" id="emergencyname" name="emergencyname" placeholder="Jane Doe" required aria-required="true" />
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 12a3 3 0 100-6 3 3 0 000 6z"/></svg>
+    </div>
+
+    <div class="input-icon">
+      <label for="emergencyphone">Emergency Contact Number</label>
+      <input type="tel" id="emergencyphone" name="emergencyphone" placeholder="+92 300 7654321" pattern="^\+?\d{10,15}$" required aria-required="true" />
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="2" d="M3 5h4L14 19l7-13h-4"/></svg>
+    </div>
+
+    <fieldset>
+      <legend>Purpose of Request</legend>
+      <select id="purpose" name="purpose" required aria-required="true">
+        <option value="">Select Purpose</option>
+        <option value="need">Need Blood</option>
+        <option value="donate">Donating Blood</option>
+        <option value="volunteer">Volunteering</option>
+      </select>
+    </fieldset>
+
+    <div class="input-icon">
+      <label for="donationdate">Preferred Donation Date</label>
+      <input type="date" id="donationdate" name="donationdate" required aria-required="true" />
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="2" d="M3 6h18M8 3v3m8 0v-3M4 10h16v10H4z"/></svg>
+    </div>
+
+    <div class="input-icon">
+      <label for="timeslot">Preferred Time Slot</label>
+      <select id="timeslot" name="timeslot" required aria-required="true">
+        <option value="">Select Time Slot</option>
+        <option value="morning">Morning (9AM - 12PM)</option>
+        <option value="afternoon">Afternoon (12PM - 4PM)</option>
+        <option value="evening">Evening (4PM - 7PM)</option>
+      </select>
+    </div>
+
+    <label class="checkbox-label" for="terms">
+      <input type="checkbox" id="terms" name="terms" required aria-required="true" />
+      I agree to the terms & safety guidelines
+    </label>
+
+    <button type="submit" class="btn-submit" disabled aria-disabled="true" aria-label="Submit Registration Form">Register Now</button>
+  </form>
+</section>
+
+<script>
+  // Enable submit button only if checkbox is checked
+  const form = document.getElementById('donationForm');
+  const termsCheckbox = form.querySelector('#terms');
+  const submitBtn = form.querySelector('.btn-submit');
+
+  termsCheckbox.addEventListener('change', () => {
+    submitBtn.disabled = !termsCheckbox.checked;
+    submitBtn.setAttribute('aria-disabled', !termsCheckbox.checked);
+  });
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!submitBtn.disabled) {
+      alert('Thank you for registering! We will contact you shortly.');
+      form.reset();
+      submitBtn.disabled = true;
+      submitBtn.setAttribute('aria-disabled', 'true');
+    }
+  });
+</script>
+<!-- ✅ Google Translate Script -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      { pageLanguage: 'en' },
+      'google_translate_element'
+    );
+  }
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
