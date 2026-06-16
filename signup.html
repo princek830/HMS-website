@@ -7,21 +7,174 @@
   <title>Hospital Management System - Signup</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Poppins', sans-serif; background: linear-gradient(to right, #8e0e00, #1f1c18); min-height: 100vh; margin: 0; display: flex; justify-content: center; align-items: center; }
-    .signup-container { background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.15); width: 100%; max-width: 420px; }
-    h2 { text-align: center; margin-bottom: 20px; color: #333; }
-    label { font-weight: 500; display: block; margin-top: 10px; }
-    input, select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; outline: none; }
-    input:focus, select:focus { border-color: #2193b0; box-shadow: 0 0 5px rgba(33,147,176,0.5); }
-    button { width: 100%; padding: 12px; margin-top: 20px; border: none; border-radius: 8px; background: #e63946; color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.3s ease; }
-    button:hover { background: #b71c1c; }
-    p { text-align: center; margin-top: 15px; }
-    a { color: #e63946; text-decoration: none; font-weight: 600; }
-    a:hover { text-decoration: underline; }
-    #doctorFields { margin-top: 15px; padding: 15px; border-radius: 8px; background: #f7f9fc; border: 1px solid #ddd; display: none; }
+    body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(to right, #0A84FF, #00C897);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.signup-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  max-width: 1100px;
+  width: 100%;
+  background: white;
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+.signup-info {
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+              url("https://images.pexels.com/photos/5452201/pexels-photo-5452201.jpeg") center/cover no-repeat;
+  color: white;
+  padding: 50px 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.signup-info h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.signup-info p {
+  line-height: 1.8;
+  margin-bottom: 30px;
+}
+
+.signup-info img {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-bottom: 25px;
+}
+
+.info-box {
+  background: rgba(255,255,255,0.15);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  backdrop-filter: blur(5px);
+}
+
+.signup-container {
+  padding: 40px;
+  background: white;
+  border-radius: 0;
+  box-shadow: none;
+  max-width: 100%;
+}
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 25px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(to right, #0A84FF, #00C897);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+#doctorFields {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 15px;
+  background: #f5f9ff;
+  border: 1px solid #dce8ff;
+  display: none;
+}
+input, select {
+  width: 100%;
+  padding: 14px;
+  margin-top: 6px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 15px;
+  outline: none;
+  background: #f9f9f9;
+  box-sizing: border-box;
+  transition: 0.3s;
+}
+input:focus,
+select:focus {
+  border-color: #0A84FF;
+  box-shadow: 0 0 10px rgba(10,132,255,0.25);
+}
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+  font-size: 2rem;
+}
+
+label {
+  font-weight: 500;
+  display: block;
+  margin-top: 15px;
+  color: #444;
+}
+
+a {
+  color: #0A84FF;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+p {
+  text-align: center;
+  margin-top: 20px;
+}
+.signup-container {
+  max-height: 90vh;
+  overflow-y: auto;
+}
   </style>
 </head>
 <body>
+  <div class="signup-wrapper">
+    <div class="signup-info">
+
+  <h1> 🏥 Digital Healthcare Network</h1>
+
+  <p>
+    Join our integrated healthcare platform to access smart appointment booking,
+    patient management, emergency support, and secure healthcare services.
+  </p>
+
+  <img src="https://images.pexels.com/photos/6129686/pexels-photo-6129686.jpeg"
+       alt="Healthcare">
+
+  <div class="info-box">
+    ✔ Secure Authentication
+  </div>
+
+  <div class="info-box">
+    ✔ Smart Healthcare Services
+  </div>
+
+  <div class="info-box">
+    ✔ Doctor & Patient Portal
+  </div>
+
+</div>
   <div class="signup-container">
     <h2>Create an Account</h2>
     <form id="signupForm">
@@ -66,7 +219,7 @@
 
     <p>Already have an account? <a href="login.html">Login here</a></p>
   </div>
-
+</div>
   <script src="signup.js" defer></script>
 </body>
 </html>
