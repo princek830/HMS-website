@@ -10,7 +10,7 @@
     :root {
       --background-color: #f4f4f4;
       --text-color: #333;
-      --header-background: linear-gradient(to right, #8e0e00, #1f1c18);
+      --header-background: linear-gradient(to right, #0A84FF, #00C897);
       --header-text-color: #ffffff;
       --button-background: #007bff;
       --button-text-color: #ffffff;
@@ -53,7 +53,11 @@
     nav ul li { display: inline-block; margin: 0 15px; }
     nav ul li a { color: var(--header-text-color); text-decoration: none; font-weight: bold; font-size: 1.0rem; transition: transform 0.3s, color 0.3s; }
     nav ul li a:hover { color: #ffcc00; transform: scale(1.05); text-decoration: underline; }
-    main { padding: 20px; max-width: 980px; margin: 0 auto; }
+    main {
+  width: 95%;
+  max-width: 1600px;
+  margin: auto;
+}
     section { background: var(--section-background); margin: 20px 0; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: background 0.5s; }
     h2 { color: #333; margin-top: 0; }
     footer { text-align: center; padding: 15px; background: #35424a; color: #fff; font-size: 0.9rem; }
@@ -69,13 +73,77 @@
     @keyframes slideIn { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     .meta-row { display:flex; gap:12px; align-items:center; justify-content:flex-end; flex-wrap:wrap; }
     .welcome-block { display:flex; align-items:center; gap:12px; justify-content:space-between; flex-wrap:wrap; }
+    .dashboard-banner {
+  background: linear-gradient(to right,#0A84FF,#00C897);
+  color: white;
+  border-radius: 20px;
+  padding: 50px;
+  text-align: center;
+}
+
+.dashboard-banner h2 {
+  color: white;
+  font-size: 2rem;
+}
+.portal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.portal-card {
+  background:white;
+  text-align:center;
+  padding:40px 30px;
+  border-radius:20px;
+  box-shadow:0 5px 20px rgba(0,0,0,.1);
+  transition:.3s;
+}
+
+.portal-card:hover {
+  transform:translateY(-8px);
+}
+
+.portal-card h3 {
+  margin-top:15px;
+}
+.stats div {
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  text-align:center;
+  font-weight:bold;
+  box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+.dashboard-date {
+  color: white;
+  opacity: 0.9;
+  font-size: 0.95rem;
+  margin-top: 5px;
+}
+.portal-card {
+  border-top: 4px solid #0A84FF;
+}
+
+.top-actions{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
   </style>
 </head>
 <body>
   <header>
-    <h1 id="main-title"> 🏥 Hospital Management System</h1>
-    <div id="user-greeting" style="color:var(--header-text-color)"></div>
-    <div id="google_translate_element"></div>
+  <h1 id="main-title"> 🏥 Patient Dashboard</h1>
+
+  <div id="user-greeting" style="color:var(--header-text-color)"></div>
+
+  <div class="dashboard-date">
+    Healthcare Dashboard • Secure Patient Access
+  </div>
+
+  <div id="google_translate_element"></div>
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
@@ -88,7 +156,7 @@
   </header>
 
   <main>
-    <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+    <div class="top-actions">
       <div>
         <button id="theme-toggle" class="button">🌙</button>
         <a id="profile-settings" class="button" href="patient-records.html">My Profile</a>
@@ -98,28 +166,44 @@
       </div>
     </div>
 
-    <section>
-      <h2 id="welcome">Welcome to the Patient Portal</h2>
-      <p id="welcome-text">Here you can manage your appointments, view your medical records, and communicate with your healthcare providers.</p>
-    </section>
+   <section class="dashboard-banner">
+  <h2 id="dashboardWelcome"></h2>
 
-    <section>
-      <h2 id="appointments">Manage Your Appointments</h2>
-      <p>View, book, or cancel your appointments easily.</p>
-      <a id="goToAppointments" href="appointments.html" class="button">Go to Appointments</a>
-    </section>
+ <p>
+Access your personalized healthcare dashboard to manage appointments,
+view medical records, connect with specialists, and utilize digital
+healthcare services securely.
+</p>
+</section>
 
-    <section>
-      <h2 id="records">Access Your Medical Records</h2>
-      <p>View your medical history and lab results.</p>
-      <a id="viewRecords" href="patient-records.html" class="button">View Records</a>
-    </section>
+<div class="portal-grid">
 
-    <section>
-      <h2 id="feedback-title">Feedback</h2>
-      <p>We value your feedback. Please let us know about your experience.</p>
-      <a id="submitFeedback" href="feedback.html" class="button">Submit Feedback</a>
-    </section>
+  <div class="portal-card">
+   <h3>📅 Appointment Management</h3>
+    <p>Schedule and manage appointments.</p>
+    <a href="appointments.html" class="button">Open</a>
+  </div>
+
+  <div class="portal-card">
+  <h3>📄 Health Records</h3>
+    <p>View reports and medical history.</p>
+    <a href="patient-records.html" class="button">Open</a>
+  </div>
+
+  <div class="portal-card">
+<h3>💬 Patient Feedback</h3>
+    <p>Share your healthcare experience.</p>
+    <a href="feedback.html" class="button">Open</a>
+  </div>
+
+  <div class="portal-card">
+   <h3>👨‍⚕️ Doctor Directory</h3>
+    <p>Search specialists and hospitals.</p>
+    <a href="services.html" class="button">Open</a>
+  </div>
+
+</div>
+
   </main>
 
   <footer>
@@ -159,8 +243,8 @@
   }
 }
        // Greeting
-  document.getElementById("user-greeting").innerHTML =
-    `Hello, <strong>${loggedInUser.name}</strong>`;
+document.getElementById("dashboardWelcome").innerHTML =
+`${loggedInUser.name}'s Healthcare Dashboard`;
 
       // Ambulance
       document.getElementById("ambulanceBtn").style.display = "flex";
